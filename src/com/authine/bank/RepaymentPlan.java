@@ -35,6 +35,26 @@ public class RepaymentPlan {
 
     private float interest=0;
 
+    //违约金
+    private float damages;
+    //违约金比率
+    private float damagesRate;
+
+    public float getDamages() {
+        if(damages==0){
+            damages=remainingMoney*damagesRate;
+        }
+        return damages;
+    }
+
+    public float getDamagesRate() {
+        return damagesRate;
+    }
+
+    public void setDamagesRate(float damagesRate) {
+        this.damagesRate = damagesRate;
+    }
+
     public RepaymentPlan getPreviousPlan() {
         return previousPlan;
     }
@@ -207,11 +227,14 @@ public class RepaymentPlan {
         plan.setLoanInfo(loanInfo);
         plan.setStartDate(getEndDate());
         plan.setPreviousPlan(this);
+        plan.setDamagesRate(damagesRate);
         return plan;
     }
 
     public String getLoanDes(){
         return loanInfo.getLoanUnit()+":"+loanInfo.getLoanType().getMsg()+",当前剩余还款期数："+getRemainingMonth()+",本期还款本金："+getPrincipal()+",本期利息："+getInterest()+
-                ",本期需总还款："+getTotal()+"，剩余还款本金："+getRemainingMoney()+",本期账单日："+DateUtils.formatDateToStr(startDate)+",本期还款日："+DateUtils.formatDateToStr(getEndDate())+","+getLoanInfo().getInterestDes();
+                ",本期需总还款："+getTotal()+"，剩余还款本金："+getRemainingMoney()+",本期账单日："+DateUtils.formatDateToStr(startDate)
+                +",本期还款日："+DateUtils.formatDateToStr(getEndDate())+","+getLoanInfo().getInterestDes()
+                +"，提前还款违约金："+getDamages();
     }
 }
