@@ -2,7 +2,6 @@ package com.authine.bank;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.WeakHashMap;
 
 /**
  * @author Harry
@@ -15,22 +14,22 @@ public class EqualAmoutInterest {
 
 //        System.out.println("总利息："+allInterest(plans));
         long samePrincipal=300000;
-        String startDate="2020-12-25";
+        String startDate="2019-02-01";
 //        String endDate="2020-09-27";
         String endDate=null;
         int numOfPeriods=36;
 
         List<RepaymentPlan> build = getAllPlans("建设银行", LoanType.EQUAL_AMOUT_PRINCIPAL_AND_INTEREST, 1200000, 0.05733f, InterestType.Y, 360, startDate,endDate);
         List<RepaymentPlan> build2 = getAllPlans("建设银行2", LoanType.EQUAL_AMOUT_PRINCIPAL, 899000, 0.05733f, InterestType.Y, 360, startDate,endDate);
-        List<RepaymentPlan> gf = getAllPlans("银行", LoanType.EQUAL_AMOUT_INTEREST, 162000, 0.0067f, InterestType.M, 36, startDate,endDate);
-        List<RepaymentPlan> wld = getAllPlans("微粒贷", LoanType.EQUAL_AMOUT_PRINCIPAL, 80000, 0.00035f, InterestType.D, 12, startDate, endDate);
+        List<RepaymentPlan> gf = getAllPlans("广州银行", LoanType.EQUAL_AMOUT_INTEREST, 200000, 0.0075f, InterestType.M, 60, startDate,endDate,0.05f);
+        List<RepaymentPlan> wld = getAllPlans("微粒贷", LoanType.EQUAL_AMOUT_PRINCIPAL, 70000, 0.00035f, InterestType.D, 20, "2021-02-18", endDate);
 //109000
         List<RepaymentPlan> sdd = getAllPlans("闪电贷", LoanType.EQUAL_AMOUT_PRINCIPAL_AND_INTEREST, 80000, 0.108f, InterestType.Y, 12, "2021-02-07", endDate);
         List<RepaymentPlan> sdd2 = getAllPlans("闪电贷", LoanType.EQUAL_AMOUT_PRINCIPAL_AND_INTEREST, 55336, 0.108f, InterestType.Y, 12, "2020-09-20", endDate);
 
 
 
-        List<RepaymentPlan> jb = getAllPlans("借呗", LoanType.EQUAL_AMOUT_PRINCIPAL_AND_INTEREST, 80000, 0.0004f, InterestType.D, 12, startDate, endDate);
+        List<RepaymentPlan> jb = getAllPlans("借呗", LoanType.EQUAL_AMOUT_PRINCIPAL, 70000, 0.0004f, InterestType.D, 10, "2020-12-25", endDate);
 //        print(jb);
 //        calculationOptimal2(wld,sdd);
 //        calculationOptimal2(gf,wld);
@@ -45,8 +44,8 @@ public class EqualAmoutInterest {
 //        print(sdd2);
 //        print(sdd,13);
 //        print(sdd2,8);
+        print(gf);
 //        print(wld);
-        print(wld);
     }
 
     private static void calculationOptimal(List<RepaymentPlan> plans1,List<RepaymentPlan> plans2){
@@ -131,6 +130,10 @@ public class EqualAmoutInterest {
         System.out.println();
     }
 
+    public static List<RepaymentPlan>getAllPlans(String loanUnit, LoanType loanType, long principal, float interest, InterestType interestType, int numOfPeriods, String startDate, String endDate){
+        return getAllPlans(loanUnit,loanType,principal,interest,interestType,numOfPeriods,startDate,endDate,0);
+    }
+
     /**
      * 获取还款计划
      * @param loanUnit 贷款单位
@@ -143,7 +146,9 @@ public class EqualAmoutInterest {
      * @param endDate
      * @return
      */
-    public static List<RepaymentPlan>getAllPlans(String loanUnit, LoanType loanType, long principal, float interest, InterestType interestType, int numOfPeriods, String startDate, String endDate){
+    public static List<RepaymentPlan>getAllPlans(String loanUnit, LoanType loanType, long principal,
+                                                 float interest, InterestType interestType, int numOfPeriods,
+                                                 String startDate, String endDate,float damagesRate){
         LoanInfo loanInfo=new LoanInfo();
         loanInfo.setLoanUnit(loanUnit);
         loanInfo.setInterest(interest);
@@ -158,6 +163,7 @@ public class EqualAmoutInterest {
         if(endDate!=null){
             repaymentPlan.setEndDate(DateUtils.formatDate(endDate));
         }
+        repaymentPlan.setDamagesRate(damagesRate);
 
         List<RepaymentPlan>plans=new ArrayList<>();
         while (repaymentPlan!=null){
