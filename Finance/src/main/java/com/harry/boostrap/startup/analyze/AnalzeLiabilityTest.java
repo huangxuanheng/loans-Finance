@@ -20,14 +20,14 @@ public class AnalzeLiabilityTest {
 //        foodDrink();
 //        whiteSpirit();
 //        militaryIndustry();
-        nonFerrousMetals();
+//        nonFerrousMetals();
 //        bank();
 //        catPart();
 //        logisticsIndustry();
 //        gold();
 //        cat();
 //        first();
-//        jiadian();
+        jiadian();
 //        guangfu();
 //        hause();
 //        singleExport("600660");

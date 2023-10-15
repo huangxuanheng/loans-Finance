@@ -13,13 +13,260 @@ import java.util.List;
 @Data
 public class AssetsLiability extends BaseEntity {
     /**
+     * 货币资金
+     */
+    private List<Double> currency_funds;
+    /**
+     * 交易性金融资产
+     */
+    private List<Double> tradable_fnncl_assets;
+    /**
+     * 应收票据及应收账款
+     */
+    private List<Double> ar_and_br;
+    /**
+     * 其中：应收票据
+     */
+    private List<Double> bills_receivable;
+    /**
      * 应收账款
      */
     private List<Double> account_receivable;
     /**
+     * 预付款项
+     */
+    private List<Double> pre_payment;
+    /**
+     * 应收利息
+     */
+    private List<Double> interest_receivable;
+    /**
+     * 应收股利
+     */
+    private List<Double> dividend_receivable;
+    /**
+     * 其他应收款
+     */
+    private List<Double> othr_receivables;
+    /**
+     * 存货，库存
+     */
+    private List<Double> inventory;
+    /**
+     * 合同资产
+     */
+    private List<Double> contractual_assets;
+    /**
+     * 一年内到期的非流动资产
+     */
+    private List<Double> nca_due_within_one_year;
+    /**
+     * 其他流动资产
+     */
+    private List<Double> othr_current_assets;
+    /**
+     * 流动资产合计
+     */
+    private List<Double> total_current_assets;
+    /**
+     * 长期股权投资
+     */
+    private List<Double> lt_equity_invest;
+    /**
+     * 其他非流动金融资产
+     */
+    private List<Double> other_illiquid_fnncl_assets;
+    /**
+     * 固定资产合计
+     */
+    private List<Double> fixed_asset_sum;
+    /**
+     * 投资性房地产
+     */
+    private List<Double> invest_property;
+    /**
+     * 其中：固定资产
+     */
+    private List<Double> fixed_asset;
+    /**
+     * 在建工程合计
+     */
+    private List<Double> construction_in_process_sum;
+    /**
+     * 其中：在建工程
+     */
+    private List<Double> construction_in_process;
+    /**
+     * 工程物资
+     */
+    private List<Double> project_goods_and_material;
+    /**
+     * 生产性生物资产
+     */
+    private List<Double> productive_biological_assets;
+    /**
+     *无形资产
+     */
+    private List<Double> intangible_assets;
+    /**
+     * 开发支出
+     */
+    private List<Double> dev_expenditure;
+    /**
+     * 长期待摊费用
+     */
+    private List<Double> lt_deferred_expense;
+    /**
+     * 递延所得税资产
+     */
+    private List<Double> dt_assets;
+    /**
+     * 其他非流动资产
+     */
+    private List<Double> othr_noncurrent_assets;
+    /**
+     * 非流动资产合计
+     */
+    private List<Double> total_noncurrent_assets;
+    /**
+     * 资产合计
+     */
+    private List<Double> total_assets;
+
+    /**
+     * 短期借款
+     */
+    private List<Double> st_loan;
+    /**
+     * 应付票据及应付账款
+     */
+    private List<Double> bp_and_ap;
+    /**
      * 应付账款
      */
     private List<Double> accounts_payable;
+    /**
+     * 预收款项
+     */
+    private List<Double> pre_receivable;
+    /**
+     * 合同负债
+     */
+    private List<Double> contract_liabilities;
+    /**
+     * 应付职工薪酬
+     */
+    private List<Double> payroll_payable;
+    /**
+     * 应交税费
+     */
+    private List<Double> tax_payable;
+    /**
+     * 应付股利
+     */
+    private List<Double> dividend_payable;
+
+    /**
+     * 其他应付款
+     */
+    private List<Double> othr_payables;
+    /**
+     * 一年内到期的非流动负债
+     */
+    private List<Double> noncurrent_liab_due_in1y;
+    /**
+     * 其他流动负债
+     */
+    private List<Double> othr_current_liab;
+    /**
+     * 流动负债合计
+     */
+    private List<Double> total_current_liab;
+    /**
+     * 长期借款
+     */
+    private List<Double> lt_loan;
+    /**
+     * 应付债券
+     */
+    private List<Double> bond_payable;
+    /**
+     * 长期应付款合计
+     */
+    private List<Double> lt_payable_sum;
+    /**
+     * 长期应付款
+     */
+    private List<Double> lt_payable;
+    /**
+     * 递延所得税负债
+     */
+    private List<Double> dt_liab;
+    /**
+     * 递延收益-非流动负债
+     */
+    private List<Double> noncurrent_liab_di;
+    /**
+     * 非流动负债合计
+     */
+    private List<Double> total_noncurrent_liab;
+    /**
+     * 负债合计
+     */
+    private List<Double> total_liab;
+    /**
+     * 实收资本(或股本)
+     */
+    private List<Double> shares;
+    /**
+     * 其他权益工具
+     */
+    private List<Double> othr_equity_instruments;
+    /**
+     * 永续债
+     */
+    private List<Double> perpetual_bond;
+    /**
+     * 资本公积
+     */
+    private List<Double> capital_reserve;
+    /**
+     * 减：库存股
+     */
+    private List<Double> treasury_stock;
+    /**
+     * 其他综合收益
+     */
+    private List<Double> othr_compre_income;
+    /**
+     * 盈余公积
+     */
+    private List<Double> earned_surplus;
+    /**
+     * 未分配利润
+     */
+    private List<Double> undstrbtd_profit;
+    /**
+     * 归属于母公司股东权益合计
+     */
+    private List<Double> total_quity_atsopc;
+    /**
+     * 少数股东权益
+     */
+    private List<Double> minority_equity;
+    /**
+     * 股东权益合计
+     */
+    private List<Double> total_holders_equity;
+
+    /**
+     * 负债和股东权益总计
+     */
+    private List<Double> total_liab_and_holders_equity;
+
+
+
+
     /**
      * 负债率：（今年总资产-去年总资产）/去年总资产
      */
@@ -28,93 +275,26 @@ public class AssetsLiability extends BaseEntity {
      * 应付票据
      */
     private List<Double> bill_payable;
-    /**
-     * 应收票据
-     */
-    private List<Double> bills_receivable;
-    /**
-     * 应付债券
-     */
-    private List<Double> bond_payable;
-    /**
-     * 在建工程
-     */
-    private List<Double> construction_in_process_sum;
-    /**
-     * 其他非流动性金融资产
-     */
-    private List<Double> other_illiquid_fnncl_assets;
-    /**
-     * 货币资金
-     */
-    private List<Double> currency_funds;
-    /**
-     * 固定资产总和
-     */
-    private List<Double> fixed_asset_sum;
+
+
+
+
     /**
      * 商誉
      */
     private List<Double> goodwill;
-    /**
-     * 存货，库存
-     */
-    private List<Double> inventory;
-    /**
-     * 投资房地产
-     */
-    private List<Double> invest_property;
-    /**
-     * 长期股权投资
-     */
-    private List<Double> lt_equity_invest;
-    /**
-     * 长期贷款
-     */
-    private List<Double> lt_loan;
-    /**
-     * 长期应付款
-     */
-    private List<Double> lt_payable;
-    /**
-     * 一年内到期的非流动负债
-     */
-    private List<Double> noncurrent_liab_due_in1y;
+
+
     /**
      * 其他权益工具投资
      */
     private List<Double> other_eq_ins_invest;
-    /**
-     * 预付款
-     */
-    private List<Double> pre_payment;
-    /**
-     * 预收款
-     */
-    private List<Double> pre_receivable;
-    /**
-     * 短期贷款
-     */
-    private List<Double> st_loan;
-    /**
-     * 总资产
-     */
-    private List<Double> total_assets;
-    /**
-     * 总负债
-     */
-    private List<Double> total_liab;
-    /**
-     * 负债总额和所有者权益
-     */
-    private List<Double> total_liab_and_holders_equity;
-    /**
-     * 交易性金融资产
-     */
-    private List<Double> tradable_fnncl_assets;
-    /**
-     * 归属于母公司股东权益合计
-     */
-    private List<Double> total_quity_atsopc;
+
+
+
+
+
+
+
 
 }
