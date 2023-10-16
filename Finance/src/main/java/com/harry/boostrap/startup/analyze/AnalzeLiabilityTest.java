@@ -17,7 +17,7 @@ public class AnalzeLiabilityTest {
     public static void main(String[] args) throws IOException, URISyntaxException {
 //        AnalzeLiability.defaultAnalzeLiability("600197");
 //        AnalzeLiabilityExportExcelHandler.createExcel("600660");
-        foodDrink();
+//        foodDrink();
 //        whiteSpirit();
 //        militaryIndustry();
 //        nonFerrousMetals();
@@ -32,6 +32,7 @@ public class AnalzeLiabilityTest {
 //        hause();
 //        singleExport("600660");
 //        dianzizhizhao();
+        dongLiMei();
     }
 
     private static void singleExport(String symbol) throws IOException, URISyntaxException {
@@ -130,5 +131,11 @@ public class AnalzeLiabilityTest {
                 Lists.newArrayList("603288",
                         "000895","600887","600305","603345",
                         "600872","603027"));
+    }
+
+    private static void dongLiMei() throws IOException, URISyntaxException {
+        AnalzeLiabilityExportExcelHandler.createExcel("动力煤",
+                Lists.newArrayList("601225",
+                        "601898","600188"));
     }
 }

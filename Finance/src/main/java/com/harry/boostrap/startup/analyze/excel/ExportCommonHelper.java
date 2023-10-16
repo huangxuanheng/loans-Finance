@@ -4,6 +4,7 @@ package com.harry.boostrap.startup.analyze.excel;
 import lombok.extern.slf4j.Slf4j;
 
 
+import org.apache.http.client.utils.DateUtils;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.util.CellRangeAddress;
@@ -414,7 +415,7 @@ public class ExportCommonHelper {
     //导出列对象
 
     public static void exportVertical(String plate, List<ExportData> headers, List<AnalzeLiabilityExportExcel>exportExcels) throws IOException {
-        String fileName = plate+".xlsx";
+        String fileName = plate+ "_"+DateUtils.formatDate(new Date(),"yyyy-MM-dd") +".xlsx";
         // 工作区
         SXSSFWorkbook wb = createXmlSheetVertical(headers,exportExcels);
         FileOutputStream os=new FileOutputStream(fileName);
