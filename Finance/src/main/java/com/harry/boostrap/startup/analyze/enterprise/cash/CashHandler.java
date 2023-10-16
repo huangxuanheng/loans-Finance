@@ -41,7 +41,7 @@ public class CashHandler {
         AnnualReport<CashContent> s = HttpUtil.get(url,new TypeReference<AnnualReport<CashContent>>(){});
         System.out.println(s);
         if(s!=null){
-            DataCheckNullAndAssigmentUtils.assigmentAssetsLiability(s.getList());
+            DataCheckNullAndAssigmentUtils.assignmentAssetsLiability(s.getList());
         }
         return s;
     }

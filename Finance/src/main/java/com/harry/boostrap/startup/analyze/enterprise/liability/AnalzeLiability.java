@@ -333,7 +333,7 @@ public class AnalzeLiability {
         AnnualReport<AssetsLiability> s = HttpUtil.get(url,new TypeReference<AnnualReport<AssetsLiability>>(){});
         System.out.println(s);
         if(s!=null){
-            DataCheckNullAndAssigmentUtils.assigmentAssetsLiability(s.getList());
+            DataCheckNullAndAssigmentUtils.assignmentAssetsLiability(s.getList());
         }
         return s;
     }

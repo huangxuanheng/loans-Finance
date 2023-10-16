@@ -7,7 +7,6 @@ import com.harry.boostrap.startup.analyze.excel.ColorType;
 import com.harry.boostrap.startup.analyze.excel.ExportData;
 import com.harry.boostrap.startup.analyze.utils.DataCheckNullAndAssigmentUtils;
 import com.harry.boostrap.startup.analyze.utils.HttpUtil;
-import com.harry.boostrap.startup.analyze.utils.LogerColorUtils;
 import org.springframework.util.CollectionUtils;
 
 import java.io.IOException;
@@ -169,7 +168,7 @@ public class InterestHandler {
         AnnualReport<Interest> s = HttpUtil.get(url,new TypeReference<AnnualReport<Interest>>(){});
         System.out.println(s);
         if(s!=null){
-            DataCheckNullAndAssigmentUtils.assigmentAssetsLiability(s.getList());
+            DataCheckNullAndAssigmentUtils.assignmentAssetsLiability(s.getList());
         }
         return s;
     }
@@ -192,7 +191,7 @@ public class InterestHandler {
         AnnualReport<Quota> s = HttpUtil.get(url,new TypeReference<AnnualReport<Quota>>(){});
         System.out.println(s);
         if(s!=null){
-            DataCheckNullAndAssigmentUtils.assigmentAssetsLiability(s.getList());
+            DataCheckNullAndAssigmentUtils.assignmentAssetsLiability(s.getList());
         }
         return s;
     }

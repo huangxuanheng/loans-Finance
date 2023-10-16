@@ -2,7 +2,7 @@ package com.harry.boostrap.startup.analyze.utils;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.harry.boostrap.startup.analyze.enterprise.liability.AssetsLiability;
+
 import java.util.HashMap;
 import java.util.Map;
 import org.springframework.util.CollectionUtils;
@@ -16,7 +16,7 @@ import java.util.List;
  * @des 描述：
  */
 public class DataCheckNullAndAssigmentUtils {
-    public static <T>void assigmentAssetsLiability(List<T> list) {
+    public static <T>void assignmentAssetsLiability(List<T> list) {
         if(CollectionUtils.isEmpty(list)){
             return;
         }
@@ -45,11 +45,24 @@ public class DataCheckNullAndAssigmentUtils {
         }
     }
 
-    public static Map<String,Object> assignment(Object obj) {
+
+    public static Map<String,Object> assignment(String prefix,Object obj) {
         String s = JSON.toJSONString(obj);
         JSONObject jsonObject = JSON.parseObject(s);
         Map<String,Object>param=new HashMap<>();
         jsonObject.entrySet().stream().forEach(stringObjectEntry -> {
+            if(stringObjectEntry.getValue() instanceof List){
+                List<Double>value= (List<Double>) stringObjectEntry.getValue();
+                Double d = value.get(0);
+                double dd=d.doubleValue()/100000000;
+                String str;
+                if(dd*100>1){
+                    str=dd+"亿";
+                }else {
+                    str=d.doubleValue()/10000+"万";
+                }
+                param.put(prefix+stringObjectEntry.getKey(),str);
+            }
 
         });
         return param;
