@@ -323,7 +323,7 @@ public class AnalzeLiability {
      * @throws IOException
      * @throws URISyntaxException
      */
-    private static AnnualReport getResponseData(String symbol,String type,int count) throws IOException, URISyntaxException{
+    public static AnnualReport<AssetsLiability> getResponseData(String symbol,String type,int count) throws IOException, URISyntaxException{
         if(count<2){
             throw new RuntimeException("查询年数不能低于2年");
         }

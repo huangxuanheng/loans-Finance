@@ -24,6 +24,13 @@ public class QuoteHandler {
         handlerQuote("SH600036");
     }
 
+    /**
+     * 获取当前行情
+     * @param symbol
+     * @return
+     * @throws IOException
+     * @throws URISyntaxException
+     */
     public static Map<String, ExportData> handlerQuote(String symbol) throws IOException, URISyntaxException {
         Map<String, ExportData> quoteMap=new HashMap<>();
         Quote quote = getQuote(symbol);

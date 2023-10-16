@@ -17,7 +17,7 @@ public class AnalzeLiabilityTest {
     public static void main(String[] args) throws IOException, URISyntaxException {
 //        AnalzeLiability.defaultAnalzeLiability("600197");
 //        AnalzeLiabilityExportExcelHandler.createExcel("600660");
-//        foodDrink();
+        foodDrink();
 //        whiteSpirit();
 //        militaryIndustry();
 //        nonFerrousMetals();
@@ -27,7 +27,7 @@ public class AnalzeLiabilityTest {
 //        gold();
 //        cat();
 //        first();
-        jiadian();
+//        jiadian();
 //        guangfu();
 //        hause();
 //        singleExport("600660");
