@@ -3,6 +3,7 @@ package com.harry.boostrap.startup.analyze.utils;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 import org.springframework.util.CollectionUtils;
@@ -52,8 +53,15 @@ public class DataCheckNullAndAssigmentUtils {
         Map<String,Object>param=new HashMap<>();
         jsonObject.entrySet().stream().forEach(stringObjectEntry -> {
             if(stringObjectEntry.getValue() instanceof List){
-                List<Double>value= (List<Double>) stringObjectEntry.getValue();
-                Double d = value.get(0);
+                List<Object>value= (List<Object>) stringObjectEntry.getValue();
+                Object dv = value.get(0);
+                Double d;
+                if(dv instanceof Double){
+                    d= (Double) dv;
+                }else {
+                    BigDecimal bigDecimal= (BigDecimal) dv;
+                    d=bigDecimal.doubleValue();
+                }
                 double dd=d.doubleValue()/100000000;
                 String str;
                 if(dd*100>1){

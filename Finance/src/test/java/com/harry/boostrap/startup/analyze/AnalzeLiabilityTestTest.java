@@ -10,14 +10,14 @@ import com.harry.boostrap.startup.analyze.enterprise.liability.AssetsLiability;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 import com.harry.boostrap.startup.analyze.utils.DataCheckNullAndAssigmentUtils;
+import com.harry.boostrap.startup.analyze.utils.HtmlUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -26,6 +26,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 @Slf4j
 public class AnalzeLiabilityTestTest {
 
+    @Autowired
+    private HtmlUtils htmlUtils;
     @Test
     public void createHtml() throws IOException, URISyntaxException {
         String type = "Q4";
@@ -102,9 +104,10 @@ public class AnalzeLiabilityTestTest {
                 preTargetCashFlow2, preTargetCashFlow3,
                 x + 1
             ));
-
         }
 
+        String htmlFile = htmlUtils.getHtmlFile("finance.html", params);
+        log.info(htmlFile);
     }
 
     private Map<String, ?> createHtmlParams(AssetsLiability targetAssetsLiability,
