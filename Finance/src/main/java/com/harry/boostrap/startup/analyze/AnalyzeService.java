@@ -90,8 +90,8 @@ public class AnalyzeService {
             CashContent targetCashFlow3 = targetCashFlows3.getList().get(x);
 
             Quota targetQuota = targetQuotaMap.get(targetAssetsLiability.getReport_name());
-            Quota targetQuota2 = targetQuotaMap.get(targetAssetsLiability2.getReport_name());
-            Quota targetQuota3 = targetQuotaMap.get(targetAssetsLiability3.getReport_name());
+            Quota targetQuota2 = targetQuotaMap2.get(targetAssetsLiability2.getReport_name());
+            Quota targetQuota3 = targetQuotaMap3.get(targetAssetsLiability3.getReport_name());
 
             params.put("y" + next, targetAssetsLiability.getReport_name());
             params.put("target2_y" + next, targetAssetsLiability2.getReport_name());
@@ -107,8 +107,8 @@ public class AnalyzeService {
             Interest preTargetInterest3 = targetInterests3.getList().get(next);
 
             Quota preTargetQuota = targetQuotaMap.get(preTargetAssetsLiability.getReport_name());
-            Quota preTargetQuota2 = targetQuotaMap.get(preTargetAssetsLiability2.getReport_name());
-            Quota preTargetQuota3 = targetQuotaMap.get(preTargetAssetsLiability3.getReport_name());
+            Quota preTargetQuota2 = targetQuotaMap2.get(preTargetAssetsLiability2.getReport_name());
+            Quota preTargetQuota3 = targetQuotaMap3.get(preTargetAssetsLiability3.getReport_name());
 
             //以年为单位组装参数
             params.putAll(createFinanceParams(targetAssetsLiability, targetAssetsLiability2,
@@ -149,8 +149,8 @@ public class AnalyzeService {
         double lastGrossSellingRate2 = preTargetQuota2.getGross_selling_rate().get(0).doubleValue();
         double lastGrossSellingRate3 = preTargetQuota3.getGross_selling_rate().get(0).doubleValue();
         double gmz = (targetQuota.getGross_selling_rate().get(0) - lastGrossSellingRate);
-        double gmz2 = (targetQuota2.getGross_selling_rate().get(0) - lastGrossSellingRate);
-        double gmz3 = (targetQuota3.getGross_selling_rate().get(0) - lastGrossSellingRate);
+        double gmz2 = (targetQuota2.getGross_selling_rate().get(0) - lastGrossSellingRate2);
+        double gmz3 = (targetQuota3.getGross_selling_rate().get(0) - lastGrossSellingRate3);
         Map<String, Object> param = new HashMap<>();
         //毛利率浮动值
         param.put(gross_margin_z, getPercentage(gmz, lastGrossSellingRate));
@@ -307,8 +307,8 @@ public class AnalyzeService {
         double tac3=targetAssetsLiability3.getAccount_receivable().get(0)+targetAssetsLiability3.getContractual_assets().get(0);
 
         param.put(total_account_contractual, getStrValue(tac));
-        param.put(total_account_contractual2, getStrValue(tac));
-        param.put(total_account_contractual3, getStrValue(tac));
+        param.put(total_account_contractual2, getStrValue(tac2));
+        param.put(total_account_contractual3, getStrValue(tac3));
 
         //（应收账款+合同资产）/总资产 比率
         String total_account_contractual_div_total_assets=target+"total_account_contractual_div_total_assets";
@@ -416,13 +416,13 @@ public class AnalyzeService {
         String gross_margin=target+"gross_margin";
         String gross_margin2=target2+"gross_margin";
         String gross_margin3=target3+"gross_margin";
-        double gm=targetInterest.getTotal_revenue().get(0)-targetInterest.getOperating_costs().get(0);
-        double gm2=targetInterest2.getTotal_revenue().get(0)-targetInterest2.getOperating_costs().get(0);
-        double gm3=targetInterest3.getTotal_revenue().get(0)-targetInterest3.getOperating_costs().get(0);
+        double gm=targetInterest.getRevenue().get(0)-targetInterest.getOperating_cost().get(0);
+        double gm2=targetInterest2.getRevenue().get(0)-targetInterest2.getOperating_cost().get(0);
+        double gm3=targetInterest3.getRevenue().get(0)-targetInterest3.getOperating_cost().get(0);
 
-        param.put(gross_margin, getPercentage(gm, preTargetInterest.getTotal_revenue().get(0)));
-        param.put(gross_margin2, getPercentage(gm2, preTargetInterest2.getTotal_revenue().get(0)));
-        param.put(gross_margin3, getPercentage(gm3, preTargetInterest3.getTotal_revenue().get(0)));
+        param.put(gross_margin, getPercentage(gm, targetInterest.getRevenue().get(0)));
+        param.put(gross_margin2, getPercentage(gm2, targetInterest2.getRevenue().get(0)));
+        param.put(gross_margin3, getPercentage(gm3, targetInterest3.getRevenue().get(0)));
 
 
         //四费合计：销售费用+管理费用+研发费用+财务费用
@@ -461,9 +461,9 @@ public class AnalyzeService {
         String sales_fee_div_assets=target+"sales_fee_div_assets";
         String sales_fee_div_assets2=target2+"sales_fee_div_assets";
         String sales_fee_div_assets3=target3+"sales_fee_div_assets";
-        param.put(sales_fee_div_assets, getPercentage(tff, gm));
-        param.put(sales_fee_div_assets2, getPercentage(tff2, gm2));
-        param.put(sales_fee_div_assets3, getPercentage(tff3, gm3));
+        param.put(sales_fee_div_assets, getPercentage(targetInterest.getSales_fee().get(0), gm));
+        param.put(sales_fee_div_assets2, getPercentage(targetInterest2.getSales_fee().get(0), gm2));
+        param.put(sales_fee_div_assets3, getPercentage(targetInterest3.getSales_fee().get(0), gm3));
         //主营利润=营业收入-营业成本-税金及附加-销售费用-管理费用-研发费用-财务费用
         String main_op=target+"main_op";
         String main_op2=target2+"main_op";
@@ -481,19 +481,19 @@ public class AnalyzeService {
         String main_op_r2=target2+"main_op_r";
         String main_op_r3=target3+"main_op_r";
         param.put(main_op_r,
-            getPercentage(targetInterest.getOp().get(0), targetInterest.getTotal_revenue().get(0)));
+            getPercentage(targetInterest.getOp().get(0), targetInterest.getRevenue().get(0)));
         param.put(main_op_r2, getPercentage(targetInterest2.getOp().get(0),
-            targetInterest2.getTotal_revenue().get(0)));
+            targetInterest2.getRevenue().get(0)));
         param.put(main_op_r3, getPercentage(targetInterest3.getOp().get(0),
-            targetInterest3.getTotal_revenue().get(0)));
+            targetInterest3.getRevenue().get(0)));
 
         //主营利润/营业利润比值
         String main_op_div_op=target+"main_op_div_op";
         String main_op_div_op2=target2+"main_op_div_op";
         String main_op_div_op3=target3+"main_op_div_op";
         param.put(main_op_div_op, getPercentage(mo, targetInterest.getOp().get(0)));
-        param.put(main_op_div_op2, getPercentage(mo, targetInterest2.getOp().get(0)));
-        param.put(main_op_div_op3, getPercentage(mo, targetInterest3.getOp().get(0)));
+        param.put(main_op_div_op2, getPercentage(mo2, targetInterest2.getOp().get(0)));
+        param.put(main_op_div_op3, getPercentage(mo3, targetInterest3.getOp().get(0)));
 
         //净利润现金比率=经营活动产生的现金流量净额/净利润
         String ncf_from_oa_div_net_profit=target+"ncf_from_oa_div_net_profit";

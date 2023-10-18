@@ -136,6 +136,6 @@ public class AnalzeLiabilityTest {
     private static void dongLiMei() throws IOException, URISyntaxException {
         AnalzeLiabilityExportExcelHandler.createExcel("动力煤",
                 Lists.newArrayList("601225",
-                        "601898","600188"));
+                        "600985","600188"));
     }
 }
