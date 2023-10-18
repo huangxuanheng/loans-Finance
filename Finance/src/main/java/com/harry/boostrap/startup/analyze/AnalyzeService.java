@@ -468,9 +468,9 @@ public class AnalyzeService {
         String main_op=target+"main_op";
         String main_op2=target2+"main_op";
         String main_op3=target3+"main_op";
-        double mo=targetInterest.getTotal_revenue().get(0)-targetInterest.getOperating_costs().get(0)-targetInterest.getOperating_taxes_and_surcharge().get(0)-tff;
-        double mo2=targetInterest2.getTotal_revenue().get(0)-targetInterest2.getOperating_costs().get(0)-targetInterest2.getOperating_taxes_and_surcharge().get(0)-tff2;
-        double mo3=targetInterest3.getTotal_revenue().get(0)-targetInterest3.getOperating_costs().get(0)-targetInterest3.getOperating_taxes_and_surcharge().get(0)-tff3;
+        double mo=targetInterest.getRevenue().get(0)-targetInterest.getOperating_cost().get(0)-targetInterest.getOperating_taxes_and_surcharge().get(0)-tff;
+        double mo2=targetInterest2.getRevenue().get(0)-targetInterest2.getOperating_cost().get(0)-targetInterest2.getOperating_taxes_and_surcharge().get(0)-tff2;
+        double mo3=targetInterest3.getRevenue().get(0)-targetInterest3.getOperating_cost().get(0)-targetInterest3.getOperating_taxes_and_surcharge().get(0)-tff3;
 
         param.put(main_op, getStrValue(mo));
         param.put(main_op2, getStrValue(mo2));
@@ -495,7 +495,7 @@ public class AnalyzeService {
         param.put(main_op_div_op2, getPercentage(mo2, targetInterest2.getOp().get(0)));
         param.put(main_op_div_op3, getPercentage(mo3, targetInterest3.getOp().get(0)));
 
-        //净利润现金比率=经营活动产生的现金流量净额/净利润
+        //净利润现金比率=经营活动产生的现金流量净额/净利润*100%
         String ncf_from_oa_div_net_profit=target+"ncf_from_oa_div_net_profit";
         String ncf_from_oa_div_net_profit2=target2+"ncf_from_oa_div_net_profit";
         String ncf_from_oa_div_net_profit3=target3+"ncf_from_oa_div_net_profit";
@@ -525,8 +525,8 @@ public class AnalyzeService {
         String net_profit_atsopc_r2=target2+"net_profit_atsopc_r";
         String net_profit_atsopc_r3=target3+"net_profit_atsopc_r";
         double npa=targetInterest.getNet_profit_atsopc().get(0)-preTargetInterest.getNet_profit_atsopc().get(0);
-        double npa2=targetInterest.getNet_profit_atsopc().get(0)-preTargetInterest2.getNet_profit_atsopc().get(0);
-        double npa3=targetInterest.getNet_profit_atsopc().get(0)-preTargetInterest3.getNet_profit_atsopc().get(0);
+        double npa2=targetInterest2.getNet_profit_atsopc().get(0)-preTargetInterest2.getNet_profit_atsopc().get(0);
+        double npa3=targetInterest3.getNet_profit_atsopc().get(0)-preTargetInterest3.getNet_profit_atsopc().get(0);
         param.put(net_profit_atsopc_r,
             getPercentage(npa, preTargetInterest.getNet_profit_atsopc().get(0)));
         param.put(net_profit_atsopc_r2,
