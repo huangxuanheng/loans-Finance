@@ -429,9 +429,10 @@ public class AnalyzeService {
         String total_four_free=target+"total_four_free";
         String total_four_free2=target2+"total_four_free";
         String total_four_free3=target3+"total_four_free";
-        double tff=targetInterest.getSales_fee().get(0)+targetInterest.getManage_fee().get(0)+targetInterest.getRad_cost().get(0)+targetInterest.getFinancing_expenses().get(0);
-        double tff2=targetInterest2.getSales_fee().get(0)+targetInterest2.getManage_fee().get(0)+targetInterest2.getRad_cost().get(0)+targetInterest2.getFinancing_expenses().get(0);
-        double tff3=targetInterest3.getSales_fee().get(0)+targetInterest3.getManage_fee().get(0)+targetInterest3.getRad_cost().get(0)+targetInterest3.getFinancing_expenses().get(0);
+        double cw;
+        double tff=targetInterest.getSales_fee().get(0)+targetInterest.getManage_fee().get(0)+targetInterest.getRad_cost().get(0)+((cw=targetInterest.getFinancing_expenses().get(0))>0?cw:0);
+        double tff2=targetInterest2.getSales_fee().get(0)+targetInterest2.getManage_fee().get(0)+targetInterest2.getRad_cost().get(0)+((cw=targetInterest2.getFinancing_expenses().get(0))>0?cw:0);
+        double tff3=targetInterest3.getSales_fee().get(0)+targetInterest3.getManage_fee().get(0)+targetInterest3.getRad_cost().get(0)+((cw=targetInterest3.getFinancing_expenses().get(0))>0?cw:0);
 
         param.put(total_four_free, getStrValue(tff));
         param.put(total_four_free2, getStrValue(tff2));
