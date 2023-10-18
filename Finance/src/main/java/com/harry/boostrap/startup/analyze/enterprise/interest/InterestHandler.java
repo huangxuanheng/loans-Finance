@@ -191,7 +191,7 @@ public class InterestHandler {
         AnnualReport<Quota> s = HttpUtil.get(url,new TypeReference<AnnualReport<Quota>>(){});
         System.out.println(s);
         if(s!=null){
-            DataCheckNullAndAssigmentUtils.assignmentAssetsLiability(s.getList());
+//            DataCheckNullAndAssigmentUtils.assignmentAssetsLiability(s.getList());
         }
         return s;
     }

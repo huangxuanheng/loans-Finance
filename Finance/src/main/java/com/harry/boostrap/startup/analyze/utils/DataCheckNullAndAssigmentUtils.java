@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 import org.springframework.util.CollectionUtils;
@@ -54,20 +55,22 @@ public class DataCheckNullAndAssigmentUtils {
         jsonObject.entrySet().stream().forEach(stringObjectEntry -> {
             if(stringObjectEntry.getValue() instanceof List){
                 List<Object>value= (List<Object>) stringObjectEntry.getValue();
-                Object dv = value.get(0);
+                Object od = value.get(0);
                 Double d;
-                if(dv instanceof Double){
-                    d= (Double) dv;
+                if(od instanceof Double){
+                    d= (Double) od;
                 }else {
-                    BigDecimal bigDecimal= (BigDecimal) dv;
-                    d=bigDecimal.doubleValue();
+                    BigDecimal bd= (BigDecimal) od;
+                    d= bd.doubleValue();
                 }
-                double dd=d.doubleValue()/100000000;
-                String str;
-                if(dd*100>1){
-                    str=dd+"亿";
-                }else {
-                    str=d.doubleValue()/10000+"万";
+
+                double dd=d.doubleValue()/100000000.0;
+                String str="";
+                DecimalFormat decimalFormat = new DecimalFormat("#.##");
+                if(Math.abs(dd*100)>1){
+                    str=decimalFormat.format(dd)+"亿";
+                }else if(dd!=0){
+                    str=decimalFormat.format(d.doubleValue()/10000.0) +"万";
                 }
                 param.put(prefix+stringObjectEntry.getKey(),str);
             }
