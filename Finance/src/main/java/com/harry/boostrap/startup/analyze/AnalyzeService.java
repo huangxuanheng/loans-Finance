@@ -4,6 +4,7 @@ import com.harry.boostrap.startup.analyze.enterprise.cash.CashContent;
 import com.harry.boostrap.startup.analyze.enterprise.cash.CashHandler;
 import com.harry.boostrap.startup.analyze.enterprise.interest.Interest;
 import com.harry.boostrap.startup.analyze.enterprise.interest.InterestHandler;
+import com.harry.boostrap.startup.analyze.enterprise.interest.Quota;
 import com.harry.boostrap.startup.analyze.enterprise.liability.AnalzeLiability;
 import com.harry.boostrap.startup.analyze.enterprise.liability.AnnualReport;
 import com.harry.boostrap.startup.analyze.enterprise.liability.AssetsLiability;
@@ -14,6 +15,8 @@ import java.net.URISyntaxException;
 import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -57,14 +60,23 @@ public class AnalyzeService {
             count);
         AnnualReport<CashContent> targetCashFlows3 = CashHandler.getCashFlow(targetSymbol3, type,
             count);
+        AnnualReport<Quota> quota = InterestHandler.getQuota(targetSymbol, type, count);
+        AnnualReport<Quota> quota2 = InterestHandler.getQuota(targetSymbol2, type, count);
+        AnnualReport<Quota> quota3 = InterestHandler.getQuota(targetSymbol3, type, count);
+
         Map<String, Object> params = new HashMap<>();
         params.put("target_company_name", targetAssetsLiabilitys.getQuote_name());
         params.put("target2_company_name", targetAssetsLiabilitys2.getQuote_name());
         params.put("target3_company_name", targetAssetsLiabilitys3.getQuote_name());
 
+        Map<String, Quota> targetQuotaMap = quota.getList().stream().collect(Collectors.toMap(Quota::getReport_name, Function.identity()));
+        Map<String, Quota> targetQuotaMap2 = quota2.getList().stream().collect(Collectors.toMap(Quota::getReport_name, Function.identity()));
+        Map<String, Quota> targetQuotaMap3 = quota3.getList().stream().collect(Collectors.toMap(Quota::getReport_name, Function.identity()));
+
         for (int x = 0; x < count; x++) {
             //遍历到最后一年时忽略计算
-            if (x + 1 == count) {
+            int next=x+1;
+            if (next == count) {
                 break;
             }
             AssetsLiability targetAssetsLiability = targetAssetsLiabilitys.getList().get(x);
@@ -77,33 +89,81 @@ public class AnalyzeService {
             CashContent targetCashFlow2 = targetCashFlows2.getList().get(x);
             CashContent targetCashFlow3 = targetCashFlows3.getList().get(x);
 
-            params.put("y" + (x + 1), targetAssetsLiability.getReport_name());
-            params.put("target2_y" + (x + 1), targetAssetsLiability2.getReport_name());
-            params.put("target3_y" + (x + 1), targetAssetsLiability3.getReport_name());
+            Quota targetQuota = targetQuotaMap.get(targetAssetsLiability.getReport_name());
+            Quota targetQuota2 = targetQuotaMap.get(targetAssetsLiability2.getReport_name());
+            Quota targetQuota3 = targetQuotaMap.get(targetAssetsLiability3.getReport_name());
 
-            AssetsLiability preTargetAssetsLiability = targetAssetsLiabilitys.getList().get(x + 1);
+            params.put("y" + next, targetAssetsLiability.getReport_name());
+            params.put("target2_y" + next, targetAssetsLiability2.getReport_name());
+            params.put("target3_y" + next, targetAssetsLiability3.getReport_name());
+
+            AssetsLiability preTargetAssetsLiability = targetAssetsLiabilitys.getList().get(next);
             AssetsLiability preTargetAssetsLiability2 = targetAssetsLiabilitys2.getList()
-                .get(x + 1);
+                .get(next);
             AssetsLiability preTargetAssetsLiability3 = targetAssetsLiabilitys3.getList()
-                .get(x + 1);
-            Interest preTargetInterest = targetInterests.getList().get(x + 1);
-            Interest preTargetInterest2 = targetInterests2.getList().get(x + 1);
-            Interest preTargetInterest3 = targetInterests3.getList().get(x + 1);
+                .get(next);
+            Interest preTargetInterest = targetInterests.getList().get(next);
+            Interest preTargetInterest2 = targetInterests2.getList().get(next);
+            Interest preTargetInterest3 = targetInterests3.getList().get(next);
+
+            Quota preTargetQuota = targetQuotaMap.get(preTargetAssetsLiability.getReport_name());
+            Quota preTargetQuota2 = targetQuotaMap.get(preTargetAssetsLiability2.getReport_name());
+            Quota preTargetQuota3 = targetQuotaMap.get(preTargetAssetsLiability3.getReport_name());
+
             //以年为单位组装参数
-            params.putAll(createHtmlParams(targetAssetsLiability, targetAssetsLiability2,
+            params.putAll(createFinanceParams(targetAssetsLiability, targetAssetsLiability2,
                 targetAssetsLiability3,
                 targetInterest, targetInterest2, targetInterest3, targetCashFlow, targetCashFlow2,
                 targetCashFlow3,
                 preTargetAssetsLiability, preTargetAssetsLiability2, preTargetAssetsLiability3,
                 preTargetInterest, preTargetInterest2, preTargetInterest3,
-                x + 1
+                next
             ));
+            params.putAll(createQuotaParam(targetQuota,targetQuota2,targetQuota3,preTargetQuota,preTargetQuota2,preTargetQuota3,next));
 
         }
         return params;
     }
 
-    private Map<String, ?> createHtmlParams(AssetsLiability targetAssetsLiability,
+    /**
+     * 毛利率浮动
+     * @param targetQuota
+     * @param targetQuota2
+     * @param targetQuota3
+     * @param preTargetQuota
+     * @param preTargetQuota2
+     * @param preTargetQuota3
+     * @param next
+     * @return
+     */
+    private Map<String, ?> createQuotaParam(Quota targetQuota, Quota targetQuota2,
+        Quota targetQuota3, Quota preTargetQuota, Quota preTargetQuota2, Quota preTargetQuota3,int next) {
+        String target = getTargetStr(1, next);
+        String target2 = getTargetStr(2, next);
+        String target3 = getTargetStr(3, next);
+        String gross_margin_z=target+"gross_margin_z";
+        String gross_margin_z2=target2+"gross_margin_z";
+        String gross_margin_z3=target3+"gross_margin_z";
+        //销售毛利率
+        double lastGrossSellingRate = preTargetQuota.getGross_selling_rate().get(0).doubleValue();
+        double lastGrossSellingRate2 = preTargetQuota2.getGross_selling_rate().get(0).doubleValue();
+        double lastGrossSellingRate3 = preTargetQuota3.getGross_selling_rate().get(0).doubleValue();
+        double gmz = (targetQuota.getGross_selling_rate().get(0) - lastGrossSellingRate);
+        double gmz2 = (targetQuota2.getGross_selling_rate().get(0) - lastGrossSellingRate);
+        double gmz3 = (targetQuota3.getGross_selling_rate().get(0) - lastGrossSellingRate);
+        Map<String, Object> param = new HashMap<>();
+        //毛利率浮动值
+        param.put(gross_margin_z, getPercentage(gmz, lastGrossSellingRate));
+        param.put(gross_margin_z2, getPercentage(gmz2, lastGrossSellingRate2));
+        param.put(gross_margin_z3, getPercentage(gmz3, lastGrossSellingRate3));
+        return param;
+    }
+
+    private static String getTargetStr(int target, int next) {
+        return (target==1?"":"target"+target+"_")+"y" + next + "_";
+    }
+
+    private Map<String, ?> createFinanceParams(AssetsLiability targetAssetsLiability,
         AssetsLiability targetAssetsLiability2, AssetsLiability targetAssetsLiability3,
         Interest targetInterest, Interest targetInterest2, Interest targetInterest3,
         CashContent targetCashFlow,
@@ -112,9 +172,9 @@ public class AnalyzeService {
         AssetsLiability preTargetAssetsLiability3, Interest preTargetInterest,
         Interest preTargetInterest2, Interest preTargetInterest3, int num) {
         Map<String, Object> param = new HashMap<>();
-        String target = "y" + num + "_";
-        String target2 = "target2_y" + num + "_";
-        String target3 = "target3_y" + num + "_";
+        String target = getTargetStr(1, num);
+        String target2 = getTargetStr(2, num);
+        String target3 = getTargetStr(3, num);
         //转换财务报表数据值
         param.putAll(DataCheckNullAndAssigmentUtils.assignment(target, targetAssetsLiability));
         param.putAll(DataCheckNullAndAssigmentUtils.assignment(target, targetInterest));
@@ -258,6 +318,14 @@ public class AnalyzeService {
         param.put(total_account_contractual_div_total_assets2, getPercentage(tac2, targetAssetsLiability2.getTotal_assets().get(0)));
         param.put(total_account_contractual_div_total_assets3, getPercentage(tac3, targetAssetsLiability3.getTotal_assets().get(0)));
 
+        //（应收账款）/总资产 比率
+        String account_receivable_div_assets=target+"account_receivable_div_assets";
+        String account_receivable_div_assets2=target2+"account_receivable_div_assets";
+        String account_receivable_div_assets3=target3+"account_receivable_div_assets";
+
+        param.put(account_receivable_div_assets, getPercentage(targetAssetsLiability.getAccount_receivable().get(0), targetAssetsLiability.getTotal_assets().get(0)));
+        param.put(account_receivable_div_assets2, getPercentage(targetAssetsLiability2.getAccount_receivable().get(0), targetAssetsLiability2.getTotal_assets().get(0)));
+        param.put(account_receivable_div_assets3, getPercentage(targetAssetsLiability3.getAccount_receivable().get(0), targetAssetsLiability3.getTotal_assets().get(0)));
 
         //固定资产+在建工程+工程物资
         String total_fixed_asset=target+"total_fixed_asset";
@@ -356,17 +424,6 @@ public class AnalyzeService {
         param.put(gross_margin2, getPercentage(gm2, preTargetInterest2.getTotal_revenue().get(0)));
         param.put(gross_margin3, getPercentage(gm3, preTargetInterest3.getTotal_revenue().get(0)));
 
-        //上一年的毛利率
-        double pre_gm=preTargetInterest.getTotal_revenue().get(0)-preTargetInterest.getOperating_costs().get(0);
-        double pre_gm2=preTargetInterest2.getTotal_revenue().get(0)-preTargetInterest2.getOperating_costs().get(0);
-        double pre_gm3=preTargetInterest3.getTotal_revenue().get(0)-preTargetInterest3.getOperating_costs().get(0);
-        //毛利率波动
-        String gross_margin_z=target+"gross_margin_z";
-        String gross_margin_z2=target2+"gross_margin_z";
-        String gross_margin_z3=target3+"gross_margin_z";
-        param.put(gross_margin_z, getPercentage((gm - pre_gm), pre_gm));
-        param.put(gross_margin_z2, getPercentage((gm2 - pre_gm2), pre_gm2));
-        param.put(gross_margin_z3, getPercentage((gm3 - pre_gm3), pre_gm3));
 
         //四费合计：销售费用+管理费用+研发费用+财务费用
         String total_four_free=target+"total_four_free";
