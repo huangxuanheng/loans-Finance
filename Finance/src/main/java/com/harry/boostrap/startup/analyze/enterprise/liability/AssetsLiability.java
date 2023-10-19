@@ -4,6 +4,7 @@ import com.harry.boostrap.startup.analyze.enterprise.BaseEntity;
 import lombok.Data;
 
 import java.util.List;
+import org.assertj.core.util.Lists;
 
 /**
  * @author Harry
@@ -291,10 +292,93 @@ public class AssetsLiability extends BaseEntity {
     private List<Double> other_eq_ins_invest;
 
 
+    public List<Double> getCurrency_funds() {
+        return getInitValue(currency_funds);
+    }
+
+    private List<Double>getInitValue(List<Double>targetValue){
+        return targetValue==null?Lists.newArrayList(0d,0d):targetValue;
+    }
+
+    public List<Double> getSt_loan() {
+        return getInitValue(st_loan);
+    }
 
 
+    public List<Double> getNoncurrent_liab_due_in1y() {
+        return getInitValue(noncurrent_liab_due_in1y);
+    }
 
+    public List<Double> getLt_loan() {
+        return getInitValue(lt_loan);
+    }
 
+    public List<Double> getLt_payable() {
+        return getInitValue(lt_payable);
+    }
 
+    public List<Double> getBill_payable() {
+        return getInitValue(bill_payable);
+    }
+
+    public List<Double> getAccounts_payable() {
+        return getInitValue(accounts_payable);
+    }
+
+    public List<Double> getPre_receivable() {
+        return getInitValue(pre_receivable);
+    }
+
+    public List<Double> getContract_liabilities() {
+        return getInitValue(contract_liabilities);
+    }
+
+    public List<Double> getAccount_receivable() {
+        return getInitValue(account_receivable);
+    }
+
+    public List<Double> getPre_payment() {
+        return getInitValue(pre_payment);
+    }
+
+    public List<Double> getContractual_assets() {
+        return getInitValue(contractual_assets);
+    }
+
+    public List<Double> getBills_receivable() {
+        return getInitValue(bills_receivable);
+    }
+
+    public List<Double> getFixed_asset() {
+        return getInitValue(fixed_asset);
+    }
+
+    public List<Double> getConstruction_in_process() {
+        return getInitValue(construction_in_process);
+    }
+
+    public List<Double> getProject_goods_and_material() {
+        return getInitValue(project_goods_and_material);
+    }
+
+    public List<Double> getOther_eq_ins_invest() {
+        return getInitValue(other_eq_ins_invest);
+    }
+
+    public List<Double> getOther_illiquid_fnncl_assets() {
+        return getInitValue(other_illiquid_fnncl_assets);
+    }
+
+    public List<Double> getLt_equity_invest() {
+        return getInitValue(lt_equity_invest);
+    }
+
+    public List<Double> getInvest_property() {
+        return getInitValue(invest_property);
+    }
+
+    public List<Double> getInventory() {
+        return getInitValue(inventory);
+    }
 
 }

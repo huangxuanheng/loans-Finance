@@ -4,6 +4,7 @@ import com.harry.boostrap.startup.analyze.enterprise.BaseEntity;
 import lombok.Data;
 
 import java.util.List;
+import org.assertj.core.util.Lists;
 
 /**
  * @author Harry
@@ -151,5 +152,34 @@ public class Interest extends BaseEntity {
      */
     private List<Double>total_compre_income_atms;
 
+    private List<Double>getInitValue(List<Double>targetValue){
+        return targetValue==null? Lists.newArrayList(0d,0d):targetValue;
+    }
 
+    public List<Double> getRevenue() {
+        if(revenue==null){
+            revenue=Lists.newArrayList(total_revenue.get(0),total_revenue.get(1));
+        }
+        return revenue;
+    }
+
+    public List<Double> getOperating_cost() {
+        return getInitValue(operating_cost);
+    }
+
+    public List<Double> getSales_fee() {
+        return getInitValue(sales_fee);
+    }
+
+    public List<Double> getManage_fee() {
+        return getInitValue(manage_fee);
+    }
+
+    public List<Double> getRad_cost() {
+        return getInitValue(rad_cost);
+    }
+
+    public List<Double> getFinancing_expenses() {
+        return getInitValue(financing_expenses);
+    }
 }

@@ -49,4 +49,18 @@ public class AnalzeLiabilityTestTest {
         String htmlFileName= "finance.html";
         analyzeService.analysisFinanceToHtml(type, count,targetSymbol,targetSymbol2,targetSymbol3,htmlFileName);
     }
+
+    @Test
+    public void bank() throws IOException, URISyntaxException {
+        String type = "Q4";
+        //五年
+        int count = 6;
+        //目标好公司股票代码
+        String targetSymbol="600036";
+        //同行公司股票代码
+        String targetSymbol2="601398";
+        String targetSymbol3="601939";
+        String htmlFileName= "finance.html";
+        analyzeService.analysisFinanceToHtml(type, count,targetSymbol,targetSymbol2,targetSymbol3,htmlFileName);
+    }
 }
