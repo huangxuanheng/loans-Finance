@@ -1,6 +1,7 @@
 package com.harry.boostrap.startup.analyze.utils;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 import com.harry.boostrap.startup.analyze.enterprise.ResponseData;
@@ -59,5 +60,16 @@ public class HttpUtil {
         String s = JSON.toJSONString(dataJSONObject);
         T t = JSON.parseObject(s, clazz);
         return t;
+    }
+
+    public static JSONArray getJSONArray(String url,String key) throws IOException {
+        HttpGet get = new HttpGet(url);
+        CloseableHttpResponse execute = closeableHttpClient.execute(get);
+        HttpEntity entity = execute.getEntity();
+        String body = EntityUtils.toString(entity);
+        JSONObject jsonObject = JSON.parseObject(body);
+        JSONObject data = jsonObject.getJSONObject("data");
+        JSONArray dataJSONObject = data.getJSONArray(key);
+        return dataJSONObject;
     }
 }

@@ -1,58 +1,56 @@
 package com.harry.boostrap.startup.analyze.utils;
 
-import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
-import java.io.FileNotFoundException;
+import java.io.BufferedReader;
 import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Reader;
+import java.io.StringWriter;
 import java.util.Date;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.client.utils.DateUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
-
-import java.io.IOException;
-import java.io.StringWriter;
-import java.util.Map;
 @Slf4j
 @Component
 public class HtmlUtils {
-    @Autowired
-    private Configuration configuration;
 
     public String createHtmlFile(String templateName, Map<String, Object> param) {
-        String emailContentStr = "";
         try {
             ClassPathResource classPathResource=new ClassPathResource(templateName);
             Reader reader=new FileReader(classPathResource.getFile());
-            char[]buf=new char[1024];
+            BufferedReader bufferedReader=new BufferedReader(reader);
+
             StringBuilder sb=new StringBuilder();
-            while ((reader.read(buf)!=-1)){
-                sb.append(new String(buf,0,buf.length));
+            String line;
+            while ((line=bufferedReader.readLine())!=null){
+                AtomicReference<String>temp=new AtomicReference<>(line);
+                param.forEach((k,v)->{
+                    temp.set(temp.get().replace("${"+k+"}",v.toString()));
+                });
+                sb.append(temp.get());
             }
-            Template template = Template.getPlainTextTemplate(templateName,sb.toString(),configuration);
-
-            emailContentStr = processTemplateIntoString(template, param);
-
-            String templateContent = sb.toString();
+            bufferedReader.close();
+            reader.close();
+/*            String templateContent = sb.toString();
             AtomicReference<String>temp=new AtomicReference<>(templateContent);
             param.entrySet().stream().forEach(entry->{
                 temp.set(temp.get().replace("${"+entry.getKey()+"}",entry.getValue().toString()));;
-            });
+            });*/
 
-            createHtmlFile(param.get("target_company_name")+"-同行对比-"+templateName,temp.get());
+            createHtmlFile(param.get("target_company_name")+"-同行对比-"+templateName,sb.toString());
             log.info("创建财务报表分析文件成功");
-//            System.out.println(temp);
-        } catch (IOException | TemplateException e) {
+            return sb.toString();
+        } catch (IOException e) {
             log.error(e.getMessage(), e);
         }
 
-        return emailContentStr;
+        return "";
     }
 
     private void createHtmlFile(String templateName, String emailContentStr)

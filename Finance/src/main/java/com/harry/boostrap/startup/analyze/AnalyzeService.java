@@ -2,21 +2,29 @@ package com.harry.boostrap.startup.analyze;
 
 import com.harry.boostrap.startup.analyze.enterprise.cash.CashContent;
 import com.harry.boostrap.startup.analyze.enterprise.cash.CashHandler;
+import com.harry.boostrap.startup.analyze.enterprise.cash.DividendService;
 import com.harry.boostrap.startup.analyze.enterprise.interest.Interest;
 import com.harry.boostrap.startup.analyze.enterprise.interest.InterestHandler;
 import com.harry.boostrap.startup.analyze.enterprise.interest.Quota;
 import com.harry.boostrap.startup.analyze.enterprise.liability.AnalzeLiability;
 import com.harry.boostrap.startup.analyze.enterprise.liability.AnnualReport;
 import com.harry.boostrap.startup.analyze.enterprise.liability.AssetsLiability;
+import com.harry.boostrap.startup.analyze.enterprise.quote.Quote;
+import com.harry.boostrap.startup.analyze.enterprise.quote.QuoteHandler;
+import com.harry.boostrap.startup.analyze.enterprise.quote.TenYearTreasuryBondYield;
+import com.harry.boostrap.startup.analyze.excel.ExportData;
 import com.harry.boostrap.startup.analyze.utils.DataCheckNullAndAssigmentUtils;
 import com.harry.boostrap.startup.analyze.utils.HtmlUtils;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.text.DecimalFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import org.apache.http.client.utils.DateUtils;
+import org.apache.poi.ss.usermodel.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -69,6 +77,7 @@ public class AnalyzeService {
         params.put("target2_company_name", targetAssetsLiabilitys2.getQuote_name());
         params.put("target3_company_name", targetAssetsLiabilitys3.getQuote_name());
 
+        params.putAll(createGoodPriceParam(targetSymbol));
         Map<String, Quota> targetQuotaMap = quota.getList().stream().collect(Collectors.toMap(Quota::getReport_name, Function.identity()));
         Map<String, Quota> targetQuotaMap2 = quota2.getList().stream().collect(Collectors.toMap(Quota::getReport_name, Function.identity()));
         Map<String, Quota> targetQuotaMap3 = quota3.getList().stream().collect(Collectors.toMap(Quota::getReport_name, Function.identity()));
@@ -120,8 +129,54 @@ public class AnalyzeService {
                 next
             ));
             params.putAll(createQuotaParam(targetQuota,targetQuota2,targetQuota3,preTargetQuota,preTargetQuota2,preTargetQuota3,next));
-
         }
+        return params;
+    }
+
+    private Map<String, ?> createGoodPriceParam(String targetSymbol) {
+        Quote quote=null;
+        try {
+            quote = QuoteHandler.getQuote(targetSymbol);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        //股息
+        Double dividend = quote.getDividend();
+        //10年国债收益率
+        double bondYield = TenYearTreasuryBondYield.getBondYield();
+        //分红时间
+        Date dividendDate = DividendService.getDividendDate(targetSymbol);
+        String buy_dividend_yield="target_buy_dividend_yield";
+        String dividend_price="target_dividend_price";
+        Map<String,Object>params=new HashMap<>();
+        if(dividendDate!=null){
+            long l = new Date().getTime() - dividendDate.getTime();
+            //股息率
+            if(l<0&&Math.abs(l)<30*60*60*24){
+                //据除息日还有不到30天，个人所得税20%
+                params.put(buy_dividend_yield,getPercentage((dividend - dividend * 0.2),quote.getCurrent()));
+                //股息率好价格
+                params.put(dividend_price,getStrValueNoUnit((dividend - dividend * 0.2)/bondYield*100));
+            }else{
+                params.put(buy_dividend_yield,getPercentage((dividend - dividend * 0.1),quote.getCurrent()));
+                params.put(dividend_price,getStrValueNoUnit((dividend - dividend * 0.1)/bondYield*100));
+            }
+        }
+
+        //市盈率好价格
+        params.put("target_pe_ttm_price",getStrValueNoUnit(quote.getCurrent()/quote.getPe_ttm()*15));
+        params.put("target_10y_treasury_bond_yield",getStrValueNoUnit(bondYield));
+        //当前股价
+        params.put("target_current",getStrValueNoUnit(quote.getCurrent()));
+        //流通市值
+        params.put("target_float_market_capital",getStrValue(quote.getFloat_market_capital()));
+        //动态市盈率
+        params.put("target_pe_ttm",getStrValueNoUnit(quote.getPe_ttm()));
+        //股息
+        params.put("target_dividend",getStrValueNoUnit(quote.getDividend()));
+        //实际股息率
+        params.put("target_dividend_yield",getStrValueNoUnit(quote.getDividend_yield()));
+
         return params;
     }
 
@@ -578,6 +633,13 @@ public class AnalyzeService {
         } else if(vv!=0){
             strValue= decimalFormat.format(value / 10000.0) + "万";
         }
+        String red="<font color=red>"+strValue+"</font>";
+        return red;
+    }
+
+    private String getStrValueNoUnit(double value) {
+        DecimalFormat decimalFormat = new DecimalFormat("#.##");
+        String strValue=decimalFormat.format(value);
         String red="<font color=red>"+strValue+"</font>";
         return red;
     }
