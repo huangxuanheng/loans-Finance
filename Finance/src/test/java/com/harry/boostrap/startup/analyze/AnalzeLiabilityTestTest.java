@@ -42,9 +42,9 @@ public class AnalzeLiabilityTestTest {
         //五年
         int count = 6;
         //目标好公司股票代码
-        String targetSymbol="601225";
+        String targetSymbol="601088";
         //同行公司股票代码
-        String targetSymbol2="601088";
+        String targetSymbol2="601225";
         String targetSymbol3="601898";
         String htmlFileName= "finance.html";
         analyzeService.analysisFinanceToHtml(type, count,targetSymbol,targetSymbol2,targetSymbol3,htmlFileName);
@@ -60,6 +60,20 @@ public class AnalzeLiabilityTestTest {
         //同行公司股票代码
         String targetSymbol2="601398";
         String targetSymbol3="601939";
+        String htmlFileName= "finance.html";
+        analyzeService.analysisFinanceToHtml(type, count,targetSymbol,targetSymbol2,targetSymbol3,htmlFileName);
+    }
+
+    @Test
+    public void gangtie() throws IOException, URISyntaxException {
+        String type = "Q4";
+        //五年
+        int count = 6;
+        //目标好公司股票代码
+        String targetSymbol="600507";
+        //同行公司股票代码
+        String targetSymbol2="000708";
+        String targetSymbol3="000825";
         String htmlFileName= "finance.html";
         analyzeService.analysisFinanceToHtml(type, count,targetSymbol,targetSymbol2,targetSymbol3,htmlFileName);
     }

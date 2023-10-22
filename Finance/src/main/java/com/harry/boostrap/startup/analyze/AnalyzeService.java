@@ -43,7 +43,7 @@ public class AnalyzeService {
         Map<String, Object> analysisFinance = analysisFinance(AnalzeLiability.getSymbol(targetSymbol),
             AnalzeLiability.getSymbol(targetSymbol2),
             AnalzeLiability.getSymbol(targetSymbol3), type, count);
-        htmlUtils.createHtmlFile(htmlFileName, analysisFinance);
+        htmlUtils.createHtmlFile(htmlFileName, analysisFinance,type);
     }
 
     private Map<String, Object> analysisFinance(String targetSymbol, String targetSymbol2, String targetSymbol3,

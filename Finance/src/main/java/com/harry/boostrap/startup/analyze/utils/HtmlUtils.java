@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class HtmlUtils {
 
-    public String createHtmlFile(String templateName, Map<String, Object> param) {
+    public String createHtmlFile(String templateName, Map<String, Object> param,String type) {
         try {
             ClassPathResource classPathResource=new ClassPathResource(templateName);
             Reader reader=new FileReader(classPathResource.getFile());
@@ -42,8 +42,8 @@ public class HtmlUtils {
             param.entrySet().stream().forEach(entry->{
                 temp.set(temp.get().replace("${"+entry.getKey()+"}",entry.getValue().toString()));;
             });*/
-
-            createHtmlFile(param.get("target_company_name")+"-同行对比-"+templateName,sb.toString());
+            String fileName=param.get("target_company_name")+""+type+"-同行对比-"+templateName;
+            createHtmlFile(fileName,sb.toString());
             log.info("创建财务报表分析文件成功");
             return sb.toString();
         } catch (IOException e) {
