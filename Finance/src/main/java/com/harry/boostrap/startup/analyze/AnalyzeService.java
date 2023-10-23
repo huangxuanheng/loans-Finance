@@ -77,7 +77,7 @@ public class AnalyzeService {
         params.put("target2_company_name", targetAssetsLiabilitys2.getQuote_name());
         params.put("target3_company_name", targetAssetsLiabilitys3.getQuote_name());
 
-        params.putAll(createGoodPriceParam(targetSymbol));
+        params.putAll(createGoodPriceParam(targetSymbol,targetSymbol2,targetSymbol3));
         Map<String, Quota> targetQuotaMap = quota.getList().stream().collect(Collectors.toMap(Quota::getReport_name, Function.identity()));
         Map<String, Quota> targetQuotaMap2 = quota2.getList().stream().collect(Collectors.toMap(Quota::getReport_name, Function.identity()));
         Map<String, Quota> targetQuotaMap3 = quota3.getList().stream().collect(Collectors.toMap(Quota::getReport_name, Function.identity()));
@@ -133,51 +133,113 @@ public class AnalyzeService {
         return params;
     }
 
-    private Map<String, ?> createGoodPriceParam(String targetSymbol) {
+    private Map<String, ?> createGoodPriceParam(String targetSymbol,String targetSymbol2,String targetSymbol3) {
         Quote quote=null;
+        Quote quote2=null;
+        Quote quote3=null;
         try {
             quote = QuoteHandler.getQuote(targetSymbol);
+            quote2 = QuoteHandler.getQuote(targetSymbol2);
+            quote3 = QuoteHandler.getQuote(targetSymbol3);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
         //股息
         Double dividend = quote.getDividend();
+        Double dividend2 = quote2.getDividend();
+        Double dividend3 = quote3.getDividend();
         //10年国债收益率
         double bondYield = TenYearTreasuryBondYield.getBondYield();
         //分红时间
         Date dividendDate = DividendService.getDividendDate(targetSymbol);
+        Date dividendDate2 = DividendService.getDividendDate(targetSymbol2);
+        Date dividendDate3 = DividendService.getDividendDate(targetSymbol3);
         String buy_dividend_yield="target_buy_dividend_yield";
+        String buy_dividend_yield2="target2_buy_dividend_yield";
+        String buy_dividend_yield3="target3_buy_dividend_yield";
         String dividend_price="target_dividend_price";
+        String dividend_price2="target2_dividend_price";
+        String dividend_price3="target3_dividend_price";
         Map<String,Object>params=new HashMap<>();
-        if(dividendDate!=null){
+        dividendPrice(quote, dividend, bondYield, dividendDate, buy_dividend_yield, dividend_price, params);
+        dividendPrice(quote2, dividend2, bondYield, dividendDate2, buy_dividend_yield2, dividend_price2, params);
+        dividendPrice(quote3, dividend3, bondYield, dividendDate3, buy_dividend_yield3, dividend_price3, params);
+
+        String target_pe_ttm_price="target_pe_ttm_price";
+        String target_pe_ttm_price2="target2_pe_ttm_price";
+        String target_pe_ttm_price3="target3_pe_ttm_price";
+        //市盈率好价格
+        params.put(target_pe_ttm_price,getStrValueNoUnit(quote.getCurrent()/quote.getPe_ttm()*15));
+        params.put(target_pe_ttm_price2,getStrValueNoUnit(quote2.getCurrent()/quote2.getPe_ttm()*15));
+        params.put(target_pe_ttm_price3,getStrValueNoUnit(quote3.getCurrent()/quote3.getPe_ttm()*15));
+        //十年国债
+        String target_10y_treasury_bond_yield="target_10y_treasury_bond_yield";
+        params.put(target_10y_treasury_bond_yield,getStrValueNoUnit(bondYield));
+
+        String target_current="target_current";
+        String target_current2="target2_current";
+        String target_current3="target3_current";
+        //当前股价
+        params.put(target_current,getStrValueNoUnit(quote.getCurrent()));
+        params.put(target_current2,getStrValueNoUnit(quote2.getCurrent()));
+        params.put(target_current3,getStrValueNoUnit(quote3.getCurrent()));
+        String target_float_market_capital="target_float_market_capital";
+        String target_float_market_capital2="target2_float_market_capital";
+        String target_float_market_capital3="target3_float_market_capital";
+        //流通市值
+        params.put(target_float_market_capital,getStrValue(quote.getFloat_market_capital()));
+        params.put(target_float_market_capital2,getStrValue(quote2.getFloat_market_capital()));
+        params.put(target_float_market_capital3,getStrValue(quote3.getFloat_market_capital()));
+        String target_pe_ttm="target_pe_ttm";
+        String target_pe_ttm2="target2_pe_ttm";
+        String target_pe_ttm3="target3_pe_ttm";
+        //动态市盈率
+        params.put(target_pe_ttm,getStrValueNoUnit(quote.getPe_ttm()));
+        params.put(target_pe_ttm2,getStrValueNoUnit(quote2.getPe_ttm()));
+        params.put(target_pe_ttm3,getStrValueNoUnit(quote3.getPe_ttm()));
+        String target_dividend="target_dividend";
+        String target_dividend2="target2_dividend";
+        String target_dividend3="target3_dividend";
+        //股息
+        params.put(target_dividend,getStrValueNoUnit(quote.getDividend()));
+        params.put(target_dividend2,getStrValueNoUnit(quote2.getDividend()));
+        params.put(target_dividend3,getStrValueNoUnit(quote3.getDividend()));
+        String target_dividend_yield="target_dividend_yield";
+        String target_dividend_yield2="target2_dividend_yield";
+        String target_dividend_yield3="target3_dividend_yield";
+        //实际股息率
+        params.put(target_dividend_yield,getStrValueNoUnit(quote.getDividend_yield()));
+        params.put(target_dividend_yield2,getStrValueNoUnit(quote2.getDividend_yield()));
+        params.put(target_dividend_yield3,getStrValueNoUnit(quote3.getDividend_yield()));
+
+        return params;
+    }
+
+    /**
+     * 股息率好价格
+     * @param quote
+     * @param dividend
+     * @param bondYield
+     * @param dividendDate
+     * @param buy_dividend_yield
+     * @param dividend_price
+     * @param params
+     */
+    private void dividendPrice(Quote quote, Double dividend, double bondYield, Date dividendDate,
+        String buy_dividend_yield, String dividend_price, Map<String, Object> params) {
+        if(dividendDate !=null){
             long l = new Date().getTime() - dividendDate.getTime();
             //股息率
             if(l<0&&Math.abs(l)<30*60*60*24){
                 //据除息日还有不到30天，个人所得税20%
-                params.put(buy_dividend_yield,getPercentage((dividend - dividend * 0.2),quote.getCurrent()));
+                params.put(buy_dividend_yield,getPercentage((dividend - dividend * 0.2), quote.getCurrent()));
                 //股息率好价格
-                params.put(dividend_price,getStrValueNoUnit((dividend - dividend * 0.2)/bondYield*100));
+                params.put(dividend_price,getStrValueNoUnit((dividend - dividend * 0.2)/ bondYield *100));
             }else{
-                params.put(buy_dividend_yield,getPercentage((dividend - dividend * 0.1),quote.getCurrent()));
-                params.put(dividend_price,getStrValueNoUnit((dividend - dividend * 0.1)/bondYield*100));
+                params.put(buy_dividend_yield,getPercentage((dividend - dividend * 0.1), quote.getCurrent()));
+                params.put(dividend_price,getStrValueNoUnit((dividend - dividend * 0.1)/ bondYield *100));
             }
         }
-
-        //市盈率好价格
-        params.put("target_pe_ttm_price",getStrValueNoUnit(quote.getCurrent()/quote.getPe_ttm()*15));
-        params.put("target_10y_treasury_bond_yield",getStrValueNoUnit(bondYield));
-        //当前股价
-        params.put("target_current",getStrValueNoUnit(quote.getCurrent()));
-        //流通市值
-        params.put("target_float_market_capital",getStrValue(quote.getFloat_market_capital()));
-        //动态市盈率
-        params.put("target_pe_ttm",getStrValueNoUnit(quote.getPe_ttm()));
-        //股息
-        params.put("target_dividend",getStrValueNoUnit(quote.getDividend()));
-        //实际股息率
-        params.put("target_dividend_yield",getStrValueNoUnit(quote.getDividend_yield()));
-
-        return params;
     }
 
     /**
