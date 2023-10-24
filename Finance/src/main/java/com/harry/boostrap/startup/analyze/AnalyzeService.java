@@ -208,9 +208,9 @@ public class AnalyzeService {
         String target_dividend_yield2="target2_dividend_yield";
         String target_dividend_yield3="target3_dividend_yield";
         //实际股息率
-        params.put(target_dividend_yield,getStrValueNoUnit(quote.getDividend_yield()));
-        params.put(target_dividend_yield2,getStrValueNoUnit(quote2.getDividend_yield()));
-        params.put(target_dividend_yield3,getStrValueNoUnit(quote3.getDividend_yield()));
+        params.put(target_dividend_yield,getStrValueNoUnit(quote.getDividend_yield())+"%");
+        params.put(target_dividend_yield2,getStrValueNoUnit(quote2.getDividend_yield())+"%");
+        params.put(target_dividend_yield3,getStrValueNoUnit(quote3.getDividend_yield())+"%");
 
         return params;
     }
@@ -676,6 +676,32 @@ public class AnalyzeService {
         param.put(dividend_rate3,
             getPercentage(targetCashFlow3.getCash_paid_of_distribution().get(0),
                 targetCashFlow3.getNcf_from_oa().get(0)));
+
+        //利息收入占比货币资金
+        String fcii_div_currency_funds=target+"fcii_div_currency_funds";
+        String fcii_div_currency_funds2=target2+"fcii_div_currency_funds";
+        String fcii_div_currency_funds3=target3+"fcii_div_currency_funds";
+
+        param.put(fcii_div_currency_funds, getPercentage(targetInterest.getFinance_cost_interest_income().get(0), targetAssetsLiability.getCurrency_funds().get(0)));
+        param.put(fcii_div_currency_funds2, getPercentage(targetInterest2.getFinance_cost_interest_income().get(0), targetAssetsLiability2.getCurrency_funds().get(0)));
+        param.put(fcii_div_currency_funds3, getPercentage(targetInterest3.getFinance_cost_interest_income().get(0), targetAssetsLiability3.getCurrency_funds().get(0)));
+
+        //利息收入-利息支出
+        String fcii_m_fcif=target+"fcii_m_fcif";
+        String fcii_m_fcif2=target2+"fcii_m_fcif";
+        String fcii_m_fcif3=target3+"fcii_m_fcif";
+        param.put(fcii_m_fcif, getStrValue(targetInterest.getFinance_cost_interest_income().get(0)-targetInterest.getFinance_cost_interest_fee().get(0)));
+        param.put(fcii_m_fcif2, getStrValue(targetInterest2.getFinance_cost_interest_income().get(0)-targetInterest2.getFinance_cost_interest_fee().get(0)));
+        param.put(fcii_m_fcif3, getStrValue(targetInterest3.getFinance_cost_interest_income().get(0)-targetInterest3.getFinance_cost_interest_fee().get(0)));
+        //利息支出占比净利润
+        String fcif_div_net_profit=target+"fcif_div_net_profit";
+        String fcif_div_net_profit2=target2+"fcif_div_net_profit";
+        String fcif_div_net_profit3=target3+"fcif_div_net_profit";
+
+        param.put(fcif_div_net_profit, getPercentage(targetInterest.getFinance_cost_interest_fee().get(0), targetInterest.getNet_profit().get(0)));
+        param.put(fcif_div_net_profit2, getPercentage(targetInterest2.getFinance_cost_interest_fee().get(0), targetInterest2.getNet_profit().get(0)));
+        param.put(fcif_div_net_profit3, getPercentage(targetInterest3.getFinance_cost_interest_fee().get(0), targetInterest3.getNet_profit().get(0)));
+
         return param;
     }
 

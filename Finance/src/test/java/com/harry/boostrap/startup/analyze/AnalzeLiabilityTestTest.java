@@ -58,7 +58,7 @@ public class AnalzeLiabilityTestTest {
         //目标好公司股票代码
         String targetSymbol="600036";
         //同行公司股票代码
-        String targetSymbol2="601398";
+        String targetSymbol2="601166";
         String targetSymbol3="601939";
         String htmlFileName= "finance.html";
         analyzeService.analysisFinanceToHtml(type, count,targetSymbol,targetSymbol2,targetSymbol3,htmlFileName);
