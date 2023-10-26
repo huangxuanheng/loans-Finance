@@ -1,7 +1,5 @@
 package com.harry.boostrap.startup.analyze.utils;
 
-import freemarker.template.Template;
-import freemarker.template.TemplateException;
 import java.io.BufferedReader;
 import java.io.FileOutputStream;
 import java.io.FileReader;
@@ -37,11 +35,6 @@ public class HtmlUtils {
             }
             bufferedReader.close();
             reader.close();
-/*            String templateContent = sb.toString();
-            AtomicReference<String>temp=new AtomicReference<>(templateContent);
-            param.entrySet().stream().forEach(entry->{
-                temp.set(temp.get().replace("${"+entry.getKey()+"}",entry.getValue().toString()));;
-            });*/
             String fileName=param.get("target_company_name")+""+type+"-同行对比-"+templateName;
             createHtmlFile(fileName,sb.toString());
             log.info("创建财务报表分析文件成功");
@@ -59,11 +52,5 @@ public class HtmlUtils {
         OutputStream os =new FileOutputStream(newFileName);
         os.write(emailContentStr.getBytes());
         os.close();
-    }
-
-    public static String processTemplateIntoString(Template template, Object model) throws IOException, TemplateException {
-        StringWriter result = new StringWriter();
-        template.process(model, result);
-        return result.toString();
     }
 }

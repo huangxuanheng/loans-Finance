@@ -2,10 +2,9 @@ package com.harry.boostrap.startup.analyze.enterprise.interest;
 
 import com.harry.boostrap.startup.analyze.enterprise.BaseEntity;
 import lombok.Data;
+import org.springframework.util.CollectionUtils;
 
 import java.util.List;
-import org.apache.commons.collections4.CollectionUtils;
-import org.assertj.core.util.Lists;
 
 /**
  * @author Harry
@@ -27,7 +26,7 @@ public class Quota extends BaseEntity {
      */
     private List<Double> operating_income_yoy;
     private List<Double>getInitValue(List<Double>targetValue){
-        if(CollectionUtils.isNotEmpty(targetValue)){
+        if(!CollectionUtils.isEmpty(targetValue)){
             for (int x=0;x<targetValue.size();x++){
                 Double aDouble = targetValue.get(x);
                 if(aDouble==null){

@@ -59,7 +59,7 @@ public class AnalzeLiabilityTestTest {
         String targetSymbol="600036";
         //同行公司股票代码
         String targetSymbol2="601166";
-        String targetSymbol3="601939";
+        String targetSymbol3="601166";
         String htmlFileName= "finance.html";
         analyzeService.analysisFinanceToHtml(type, count,targetSymbol,targetSymbol2,targetSymbol3,htmlFileName);
     }
@@ -74,6 +74,25 @@ public class AnalzeLiabilityTestTest {
         //同行公司股票代码
         String targetSymbol2="000708";
         String targetSymbol3="000825";
+        String htmlFileName= "finance.html";
+        analyzeService.analysisFinanceToHtml(type, count,targetSymbol,targetSymbol2,targetSymbol3,htmlFileName);
+    }
+
+    /**
+     * 食品加工
+     * @throws IOException
+     * @throws URISyntaxException
+     */
+    @Test
+    public void meat() throws IOException, URISyntaxException {
+        String type = "Q4";
+        //五年
+        int count = 6;
+        //目标好公司股票代码
+        String targetSymbol="000895";
+        //同行公司股票代码
+        String targetSymbol2="603345";
+        String targetSymbol3="600073";
         String htmlFileName= "finance.html";
         analyzeService.analysisFinanceToHtml(type, count,targetSymbol,targetSymbol2,targetSymbol3,htmlFileName);
     }

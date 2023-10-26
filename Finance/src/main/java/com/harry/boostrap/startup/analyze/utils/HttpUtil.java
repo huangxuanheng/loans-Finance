@@ -15,6 +15,8 @@ import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Harry
@@ -71,5 +73,35 @@ public class HttpUtil {
         JSONObject data = jsonObject.getJSONObject("data");
         JSONArray dataJSONObject = data.getJSONArray(key);
         return dataJSONObject;
+    }
+
+    /**
+     * 获取指数PE估值
+     * @param url
+     * @return
+     * @throws IOException
+     */
+    public static Map<String,Double> getFundPe(String url) throws IOException {
+        HttpGet get = new HttpGet(url);
+        CloseableHttpResponse execute = closeableHttpClient.execute(get);
+        HttpEntity entity = execute.getEntity();
+        String body = EntityUtils.toString(entity);
+        JSONObject jsonObject = JSON.parseObject(body);
+        JSONObject data = jsonObject.getJSONObject("data");
+        JSONArray horizontal_lines = data.getJSONArray("horizontal_lines");
+        Map<String,Double>map=new HashMap<>();
+        for (int x=0;x<horizontal_lines.size();x++){
+            JSONObject linesJSONObject = horizontal_lines.getJSONObject(x);
+            if(linesJSONObject.getInteger("line_type")==1){
+                map.put("lv",linesJSONObject.getDoubleValue("line_value"));
+            }
+        }
+        //pe 市盈率列表
+        JSONArray index_eva_pe_growths = data.getJSONArray("index_eva_pe_growths");
+        JSONObject growthsJSONObject = index_eva_pe_growths.getJSONObject(index_eva_pe_growths.size() - 1);
+
+        map.put("pe",growthsJSONObject.getDoubleValue("pe"));
+
+        return map;
     }
 }

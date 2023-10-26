@@ -2,16 +2,10 @@
 server:
   port: 8012
 
-spring:
-  rabbitmq:
-    host: 127.0.0.1
-    port: 5672
-    username: admin
-    password: admin
-    publisher-confirms: true
-    listener:
-      simple:
-        acknowledge-mode: MANUAL
-    virtual-host: my_vhost
-  application:
-    name: test-mq
+warn:
+  fund:   #指数基金,000015-上证红利指数，000300-沪深300
+    symbols:
+      - 上证红利: 000015
+        沪深300: 000300
+  stock:  #股票
+    symbols:
