@@ -1,17 +1,26 @@
 package com.harry.boostrap.startup.pe;
 
+import com.harry.boostrap.startup.analyze.enterprise.cash.DividendService;
 import com.harry.boostrap.startup.analyze.enterprise.liability.AnalzeLiability;
+import com.harry.boostrap.startup.analyze.enterprise.quote.Quote;
+import com.harry.boostrap.startup.analyze.enterprise.quote.QuoteHandler;
+import com.harry.boostrap.startup.analyze.enterprise.quote.TenYearTreasuryBondYield;
 import com.harry.boostrap.startup.analyze.utils.EmailHelper;
 import com.harry.boostrap.startup.analyze.utils.HttpUtil;
 import com.harry.boostrap.startup.config.WarnFundConfig;
 import java.io.UnsupportedEncodingException;
 import javax.mail.MessagingException;
+
+import com.harry.boostrap.startup.config.WarnStockConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.text.DecimalFormat;
+import java.util.Date;
 import java.util.Map;
 
 /**
@@ -22,6 +31,8 @@ import java.util.Map;
 public class PeService {
     @Autowired
     private WarnFundConfig warnFundConfig;
+    @Autowired
+    private WarnStockConfig warnStockConfig;
     @Autowired
     private EmailHelper emailHelper;
     /**
@@ -43,6 +54,60 @@ public class PeService {
 
     @Scheduled(cron = "0 38 14 * * ?")
     public void scheduleCheckLowPeAndSendMsg(){
+        //检查指数基金是否满足最低低估值并发送预警买入提醒
+//        checkFundPe();
+        //检查股票价是否满足好价格买入时机并提醒
+        checkStockPe();
+    }
+
+    private void checkStockPe() {
+        Map<String, String> symbols = warnStockConfig.getSymbols();
+        symbols.forEach((symbol,name)->{
+            try {
+                checkEchStockPe(AnalzeLiability.getSymbol(symbol), name);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            } catch (URISyntaxException e) {
+                throw new RuntimeException(e);
+            }
+        });
+    }
+
+    //计算每一个股票好价格
+    private void checkEchStockPe(String symbol, String name) throws IOException, URISyntaxException {
+        log.info("{}-代码:{}", name, symbol);
+        Quote quote = QuoteHandler.getQuote(symbol);
+        //股息
+        Double dividend = quote.getDividend();
+        //10年国债收益率
+        double bondYield = TenYearTreasuryBondYield.getBondYield();
+        Date dividendDate = DividendService.getDividendDate(symbol);
+        //市盈率好价格
+        double peTtmGoodPrice = quote.getCurrent() / quote.getPe_ttm() * 15;
+        double d=0;
+        double dividendGoodPrice=0;
+        if(dividendDate !=null){
+            long l = new Date().getTime() - dividendDate.getTime();
+            //股息率
+            if(l<0&&Math.abs(l)<30*60*60*24){
+                //扣减税后股息，据除息日还有不到30天，个人所得税20%
+                d=(dividend - dividend * 0.2)/quote.getCurrent();
+                //股息率好价格
+                dividendGoodPrice = (dividend - dividend * 0.2) / bondYield * 100;
+            }else{
+                d=(dividend - dividend * 0.1)/quote.getCurrent();
+                //股息率好价格
+                dividendGoodPrice = (dividend - dividend * 0.1) / bondYield * 100;
+            }
+        }
+
+        double min = Math.min(peTtmGoodPrice, dividendGoodPrice);
+        if(quote.getCurrent().doubleValue()<min){
+            sendMsg(symbol,name,quote.getPe_ttm(),d,quote.getDividend_yield(),min, quote.getCurrent());
+        }
+    }
+
+    private void checkFundPe() {
         Map<String, String> symbols = warnFundConfig.getSymbols();
         symbols.forEach((symbol,name)->{
             log.info("{}-代码:{}",name,symbol);
@@ -59,7 +124,7 @@ public class PeService {
     }
 
     /**
-     * 发送消息
+     * 发送低估消息
      * @param symbol
      * @param name
      * @param pe
@@ -69,6 +134,32 @@ public class PeService {
         log.info("发送消息通知已经触底最低估了");
         String content=name.concat(":").concat(symbol).concat(" 触底低估了\n").concat("当前市盈率：").concat(pe.toString()).concat(",触底参考：").concat(lv.toString());
         String title="市盈率低估触底提醒";
+        try {
+            emailHelper.sendEmail("503116108@qq.com",title,content);
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * 发送低估消息
+     * @param symbol
+     * @param name
+     * @param pe
+     * @param dividend_buy 买入股息率
+     * @param dividend_r 持有股息率
+     * @param goodPrice 好价格
+     * @param current 当前价格
+     */
+    private void sendMsg(String symbol, String name, Double pe, Double dividend_buy,Double dividend_r,double goodPrice,double current) {
+        log.info("发送消息通知已经触底最低估了");
+        DecimalFormat decimalFormat = new DecimalFormat("#.##");
+        String content=new StringBuilder().append(name).append("(").append(symbol).append(")\n\n").append(" 当前市盈率：").append(decimalFormat.format(pe))
+                .append(",买入股息率:").append(decimalFormat.format(dividend_buy*100)).append("%").append(",持有股息率：").append(decimalFormat.format(dividend_r)).append("%\n\n")
+                .append("当前好价格：").append(decimalFormat.format(goodPrice)).append(",当前股票价格：").append(current).append("小于好价格,可以适当买入！").toString();
+        String title="股票["+name+"]出现好价格拉";
         try {
             emailHelper.sendEmail("503116108@qq.com",title,content);
         } catch (MessagingException e) {
