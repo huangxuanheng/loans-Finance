@@ -96,4 +96,121 @@ public class AnalzeLiabilityTestTest {
         String htmlFileName= "finance.html";
         analyzeService.analysisFinanceToHtml(type, count,targetSymbol,targetSymbol2,targetSymbol3,htmlFileName);
     }
+
+    /**
+     * 车身附件及饰件
+     * @throws IOException
+     * @throws URISyntaxException
+     */
+    @Test
+    public void car() throws IOException, URISyntaxException {
+        String type = "Q4";
+        //五年
+        int count = 6;
+        //目标好公司股票代码
+        String targetSymbol="600660";
+        //同行公司股票代码
+        String targetSymbol2="600741";
+        String targetSymbol3="002048";
+        String htmlFileName= "finance.html";
+        analyzeService.analysisFinanceToHtml(type, count,targetSymbol,targetSymbol2,targetSymbol3,htmlFileName);
+    }
+
+
+    /**
+     * 车身附件及饰件
+     * @throws IOException
+     * @throws URISyntaxException
+     */
+    @Test
+    public void baisejiadian() throws IOException, URISyntaxException {
+        String type = "Q4";
+        //五年
+        int count = 6;
+        //目标好公司股票代码
+        String targetSymbol="000333";
+        //同行公司股票代码
+        String targetSymbol2="000651";
+        String targetSymbol3="600690";
+        String htmlFileName= "finance.html";
+        analyzeService.analysisFinanceToHtml(type, count,targetSymbol,targetSymbol2,targetSymbol3,htmlFileName);
+    }
+
+
+    /**
+     * 小家电
+     * @throws IOException
+     * @throws URISyntaxException
+     */
+    @Test
+    public void littleHome() throws IOException, URISyntaxException {
+        String type = "Q4";
+        //五年
+        int count = 6;
+        //目标好公司股票代码
+        String targetSymbol="002032";
+        //同行公司股票代码
+        String targetSymbol2="003023";
+        String targetSymbol3="300272";
+        String htmlFileName= "finance.html";
+        analyzeService.analysisFinanceToHtml(type, count,targetSymbol,targetSymbol2,targetSymbol3,htmlFileName);
+    }
+
+
+    /**
+     * 烘焙食品
+     * @throws IOException
+     * @throws URISyntaxException
+     */
+    @Test
+    public void hongpeishipin() throws IOException, URISyntaxException {
+        String type = "Q4";
+        //五年
+        int count = 6;
+        //目标好公司股票代码
+        String targetSymbol="603886";
+        //同行公司股票代码
+        String targetSymbol2="603043";
+        String targetSymbol3="603866";
+        String htmlFileName= "finance.html";
+        analyzeService.analysisFinanceToHtml(type, count,targetSymbol,targetSymbol2,targetSymbol3,htmlFileName);
+    }
+
+    /**
+     * 厨卫电器
+     * @throws IOException
+     * @throws URISyntaxException
+     */
+    @Test
+    public void chuweidianqi() throws IOException, URISyntaxException {
+        String type = "Q4";
+        //五年
+        int count = 6;
+        //目标好公司股票代码
+        String targetSymbol="002677";
+        //同行公司股票代码
+        String targetSymbol2="002508";
+        String targetSymbol3="002543";
+        String htmlFileName= "finance.html";
+        analyzeService.analysisFinanceToHtml(type, count,targetSymbol,targetSymbol2,targetSymbol3,htmlFileName);
+    }
+
+    /**
+     * 乳品
+     * @throws IOException
+     * @throws URISyntaxException
+     */
+    @Test
+    public void rupin() throws IOException, URISyntaxException {
+        String type = "Q4";
+        //五年
+        int count = 6;
+        //目标好公司股票代码
+        String targetSymbol="600887";
+        //同行公司股票代码
+        String targetSymbol2="002732";
+        String targetSymbol3="600429";
+        String htmlFileName= "finance.html";
+        analyzeService.analysisFinanceToHtml(type, count,targetSymbol,targetSymbol2,targetSymbol3,htmlFileName);
+    }
 }

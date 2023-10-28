@@ -70,6 +70,10 @@ public class AssetsLiability extends BaseEntity {
      */
     private List<Double> total_current_assets;
     /**
+     * 可供出售金融资产
+     */
+    private List<Double> salable_financial_assets;
+    /**
      * 长期股权投资
      */
     private List<Double> lt_equity_invest;

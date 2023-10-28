@@ -466,12 +466,13 @@ public class AnalyzeService {
 
         //投资类资产合计:以公允价值计量且其变动计入当期损益的金融资产+债权投资+可供出售金融资产
         // +其他权益工具投资+其他债权投资+持有至到期投资+其他非流动金融资产+长期股权投资+投资性房地产
+        //以公允价值计量且其变动计入当期损益的金融资产--->在财务报表中有声明，多数指：交易性金融资产
         String total_invest=target+"total_invest";
         String total_invest2=target2+"total_invest";
         String total_invest3=target3+"total_invest";
-        double ti=targetAssetsLiability.getOther_eq_ins_invest().get(0)+targetAssetsLiability.getOther_illiquid_fnncl_assets().get(0)+targetAssetsLiability.getLt_equity_invest().get(0)+targetAssetsLiability.getInvest_property().get(0);
-        double ti2=targetAssetsLiability2.getOther_eq_ins_invest().get(0)+targetAssetsLiability2.getOther_illiquid_fnncl_assets().get(0)+targetAssetsLiability2.getLt_equity_invest().get(0)+targetAssetsLiability2.getInvest_property().get(0);
-        double ti3=targetAssetsLiability3.getOther_eq_ins_invest().get(0)+targetAssetsLiability3.getOther_illiquid_fnncl_assets().get(0)+targetAssetsLiability3.getLt_equity_invest().get(0)+targetAssetsLiability3.getInvest_property().get(0);
+        double ti=targetAssetsLiability.getTradable_fnncl_assets().get(0)+targetAssetsLiability.getSalable_financial_assets().get(0)+targetAssetsLiability.getOther_eq_ins_invest().get(0)+targetAssetsLiability.getOther_illiquid_fnncl_assets().get(0)+targetAssetsLiability.getLt_equity_invest().get(0)+targetAssetsLiability.getInvest_property().get(0);
+        double ti2=targetAssetsLiability2.getTradable_fnncl_assets().get(0)+targetAssetsLiability2.getSalable_financial_assets().get(0)+targetAssetsLiability2.getOther_eq_ins_invest().get(0)+targetAssetsLiability2.getOther_illiquid_fnncl_assets().get(0)+targetAssetsLiability2.getLt_equity_invest().get(0)+targetAssetsLiability2.getInvest_property().get(0);
+        double ti3=targetAssetsLiability3.getTradable_fnncl_assets().get(0)+targetAssetsLiability3.getSalable_financial_assets().get(0)+targetAssetsLiability3.getOther_eq_ins_invest().get(0)+targetAssetsLiability3.getOther_illiquid_fnncl_assets().get(0)+targetAssetsLiability3.getLt_equity_invest().get(0)+targetAssetsLiability3.getInvest_property().get(0);
 
         param.put(total_invest, getStrValue(ti));
         param.put(total_invest2, getStrValue(ti2));
