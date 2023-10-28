@@ -55,7 +55,7 @@ public class PeService {
     @Scheduled(cron = "0 38 14 * * ?")
     public void scheduleCheckLowPeAndSendMsg(){
         //检查指数基金是否满足最低低估值并发送预警买入提醒
-//        checkFundPe();
+        checkFundPe();
         //检查股票价是否满足好价格买入时机并提醒
         checkStockPe();
     }
