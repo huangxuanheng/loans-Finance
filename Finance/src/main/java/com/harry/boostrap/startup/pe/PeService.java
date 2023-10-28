@@ -62,9 +62,9 @@ public class PeService {
 
     private void checkStockPe() {
         Map<String, String> symbols = warnStockConfig.getSymbols();
-        symbols.forEach((symbol,name)->{
+        symbols.forEach((symbol,configStr)->{
             try {
-                checkEchStockPe(AnalzeLiability.getSymbol(symbol), name);
+                checkEchStockPe(AnalzeLiability.getSymbol(symbol), configStr);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             } catch (URISyntaxException e) {
@@ -74,8 +74,8 @@ public class PeService {
     }
 
     //计算每一个股票好价格
-    private void checkEchStockPe(String symbol, String name) throws IOException, URISyntaxException {
-        log.info("{}-代码:{}", name, symbol);
+    private void checkEchStockPe(String symbol, String configStr) throws IOException, URISyntaxException {
+        log.info("{}-代码:{}", configStr, symbol);
         Quote quote = QuoteHandler.getQuote(symbol);
         //股息
         Double dividend = quote.getDividend();
@@ -103,7 +103,7 @@ public class PeService {
 
         double min = Math.min(peTtmGoodPrice, dividendGoodPrice);
         if(quote.getCurrent().doubleValue()<min){
-            sendMsg(symbol,name,quote.getPe_ttm(),d,quote.getDividend_yield(),min, quote.getCurrent());
+            sendMsg(symbol,quote.getName(),quote.getPe_ttm(),d,quote.getDividend_yield(),min, quote.getCurrent(),configStr);
         }
     }
 
@@ -152,16 +152,32 @@ public class PeService {
      * @param dividend_r 持有股息率
      * @param goodPrice 好价格
      * @param current 当前价格
+     * @param configStr 配置格式：股票名称,合理市盈率最低值，合理市盈率最高值，当动态市盈率高于或者低于合理市盈率时，可以操作买卖
      */
-    private void sendMsg(String symbol, String name, Double pe, Double dividend_buy,Double dividend_r,double goodPrice,double current) {
+    private void sendMsg(String symbol, String name, Double pe, Double dividend_buy,Double dividend_r,double goodPrice,double current,String configStr) {
         log.info("发送消息通知已经触底最低估了");
+        String[] split = configStr.split(",");
+
         DecimalFormat decimalFormat = new DecimalFormat("#.##");
-        String content=new StringBuilder().append(name).append("(").append(symbol).append(")\n\n").append(" 当前市盈率：").append(decimalFormat.format(pe))
+        StringBuilder content=new StringBuilder().append(name).append("(").append(symbol).append(")\n\n").append(" 当前市盈率：").append(decimalFormat.format(pe))
                 .append(",买入股息率:").append(decimalFormat.format(dividend_buy*100)).append("%").append(",持有股息率：").append(decimalFormat.format(dividend_r)).append("%\n\n")
-                .append("当前好价格：").append(decimalFormat.format(goodPrice)).append(",当前股票价格：").append(current).append("小于好价格,可以适当买入！").toString();
+                .append("当前好价格：").append(decimalFormat.format(goodPrice)).append(",当前股票价格：").append(current).append("小于好价格,可以适当买入！\n\n");
+        if(split.length>0&&split.length==3){
+            double peMin=Double.parseDouble(split[1]);
+            double peMax=Double.parseDouble(split[2]);
+            double peMid;
+            if(current<peMin){
+                String replace = warnStockConfig.getTemp().replace("${pe_min}", peMin + "").replace("${pe_max}", peMax + "");
+                content.append(replace);
+            }else if(current<(peMid=(peMin+peMax)/2)){
+                String replace = warnStockConfig.getTemp().replace("${pe_min}", peMin + "").replace("${pe_max}", peMax + "").replace("${pe_mid}",peMid+"");
+                content.append(replace);
+            }
+        }
+
         String title="股票["+name+"]出现好价格拉";
         try {
-            emailHelper.sendEmail("503116108@qq.com",title,content);
+            emailHelper.sendEmail("503116108@qq.com",title,content.toString());
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         } catch (UnsupportedEncodingException e) {

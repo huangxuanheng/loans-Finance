@@ -61,6 +61,10 @@ public class Quote {
      * 货币单位
      */
     private String currency;
+    /**
+     * 股票名称
+     */
+    private String name;
 
 
 }

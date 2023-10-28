@@ -178,6 +178,8 @@ public class AnalzeLiabilityTestTest {
 
     /**
      * 厨卫电器
+     * 002677- 浙江美大，近3年合理市盈率是15.4-18，如果市盈率低于15.4时，可以定投买入，
+     * 如果市盈率低于15时，可以翻倍买入。如果低于14时，再翻倍买入，以此类推
      * @throws IOException
      * @throws URISyntaxException
      */

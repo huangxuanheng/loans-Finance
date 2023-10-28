@@ -13,4 +13,9 @@ import java.util.Map;
 @Getter
 public class WarnStockConfig {
     private Map<String,String>symbols;
+    /**
+     * 文本提醒模板
+     */
+    private String temp;
+    private String temp1;
 }
