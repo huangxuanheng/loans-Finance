@@ -215,4 +215,43 @@ public class AnalzeLiabilityTestTest {
         String htmlFileName= "finance.html";
         analyzeService.analysisFinanceToHtml(type, count,targetSymbol,targetSymbol2,targetSymbol3,htmlFileName);
     }
+
+    /**
+     * 装修建材
+     * @throws IOException
+     * @throws URISyntaxException
+     */
+    @Test
+    public void wrapperBuilder() throws IOException, URISyntaxException {
+        String type = "Q4";
+        //五年
+        int count = 6;
+        //目标好公司股票代码
+        String targetSymbol="002372";
+        //同行公司股票代码
+        String targetSymbol2="002271";
+        String targetSymbol3="000786";
+        String htmlFileName= "finance.html";
+        analyzeService.analysisFinanceToHtml(type, count,targetSymbol,targetSymbol2,targetSymbol3,htmlFileName);
+    }
+
+
+    /**
+     * 航运
+     * @throws IOException
+     * @throws URISyntaxException
+     */
+    @Test
+    public void hangyuan() throws IOException, URISyntaxException {
+        String type = "Q4";
+        //五年
+        int count = 6;
+        //目标好公司股票代码
+        String targetSymbol="603565";
+        //同行公司股票代码
+        String targetSymbol2="601919";
+        String targetSymbol3="601866";
+        String htmlFileName= "finance.html";
+        analyzeService.analysisFinanceToHtml(type, count,targetSymbol,targetSymbol2,targetSymbol3,htmlFileName);
+    }
 }

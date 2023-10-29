@@ -19,7 +19,7 @@ public class DividendService {
      */
     public static Date getDividendDate(String symbol){
 
-        String url="https://stock.xueqiu.com/v5/stock/f10/cn/bonus.json?symbol="+symbol+"&size=1&page=1&extend=true";
+        String url="https://stock.xueqiu.com/v5/stock/f10/cn/bonus.json?symbol="+symbol+"&size=2&page=1&extend=true";
         try {
             HttpUtil.get("https://xueqiu.com",null);
             JSONArray object = HttpUtil.getJSONArray(url, "items");
@@ -27,7 +27,11 @@ public class DividendService {
                 return null;
             }
             JSONObject item= (JSONObject) object.get(0);
-            return item.getDate("dividend_date");
+            Date temp;
+            if((temp=item.getDate("dividend_date"))==null){
+                temp=((JSONObject) object.get(1)).getDate("dividend_date");
+            }
+            return temp;
         } catch (Exception e) {
             System.out.println(e);
         }

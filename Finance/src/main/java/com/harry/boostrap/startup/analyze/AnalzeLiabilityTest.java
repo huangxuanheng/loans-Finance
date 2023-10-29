@@ -32,7 +32,8 @@ public class AnalzeLiabilityTest {
 //        hause();
 //        singleExport("600660");
 //        dianzizhizhao();
-        dongLiMei();
+//        dongLiMei();
+        hangyun();
     }
 
     private static void singleExport(String symbol) throws IOException, URISyntaxException {
@@ -137,5 +138,11 @@ public class AnalzeLiabilityTest {
         AnalzeLiabilityExportExcelHandler.createExcel("动力煤",
                 Lists.newArrayList("601225",
                         "600985","600188"));
+    }
+
+    private static void hangyun() throws IOException, URISyntaxException {
+        AnalzeLiabilityExportExcelHandler.createExcel("航运",
+                Lists.newArrayList("603565",
+                        "601919","601866"));
     }
 }
