@@ -14,6 +14,7 @@ import javax.mail.MessagingException;
 import com.harry.boostrap.startup.config.WarnStockConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -35,6 +36,11 @@ public class PeService {
     private WarnStockConfig warnStockConfig;
     @Autowired
     private EmailHelper emailHelper;
+    /**
+     * 接收邮箱
+     */
+    @Value("${export.email.to}")
+    private String receiveEmail;
     /**
      * 获取指数基金估值
      * @param symbol 指数代码
@@ -133,9 +139,9 @@ public class PeService {
     private void sendMsg(String symbol, String name, Double pe, Double lv) {
         log.info("发送消息通知已经触底最低估了");
         String content=name.concat(":").concat(symbol).concat(" 触底低估了\n").concat("当前市盈率：").concat(pe.toString()).concat(",触底参考：").concat(lv.toString());
-        String title="市盈率低估触底提醒";
+        String title=name+"("+symbol+")"+"市盈率低估触底可以买入拉！";
         try {
-            emailHelper.sendEmail("503116108@qq.com",title,content);
+            emailHelper.sendEmail(receiveEmail,title,content);
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         } catch (UnsupportedEncodingException e) {
@@ -177,7 +183,7 @@ public class PeService {
 
         String title="股票["+name+"]出现好价格拉";
         try {
-            emailHelper.sendEmail("503116108@qq.com",title,content.toString());
+            emailHelper.sendEmail(receiveEmail,title,content.toString());
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         } catch (UnsupportedEncodingException e) {
