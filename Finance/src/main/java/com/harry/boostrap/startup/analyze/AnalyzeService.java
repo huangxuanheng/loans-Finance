@@ -373,6 +373,23 @@ public class AnalyzeService {
         String total_currency_funds_total_interest_bearing_liabilities_c2=target2+"currency_funds_interest_bearing_liabilities_c";
         String total_currency_funds_total_interest_bearing_liabilities_c3=target3+"currency_funds_interest_bearing_liabilities_c";
 
+        //有息负债/总负债
+        String total_interest_bearing_liabilities_div_total_liab=target+"total_interest_bearing_liabilities_div_total_liab";
+        String total_interest_bearing_liabilities_div_total_liab2=target2+"total_interest_bearing_liabilities_div_total_liab";
+        String total_interest_bearing_liabilities_div_total_liab3=target3+"total_interest_bearing_liabilities_div_total_liab";
+        param.put(total_interest_bearing_liabilities_div_total_liab, getPercentage(tibl,targetAssetsLiability.getTotal_liab().get(0)));
+        param.put(total_interest_bearing_liabilities_div_total_liab2, getPercentage(tibl2,targetAssetsLiability2.getTotal_liab().get(0)));
+        param.put(total_interest_bearing_liabilities_div_total_liab3, getPercentage(tibl3,targetAssetsLiability3.getTotal_liab().get(0)));
+
+        String total_interest_bearing_liabilities_div_total_assets=target+"total_interest_bearing_liabilities_div_total_assets";
+        String total_interest_bearing_liabilities_div_total_assets2=target2+"total_interest_bearing_liabilities_div_total_assets";
+        String total_interest_bearing_liabilities_div_total_assets3=target3+"total_interest_bearing_liabilities_div_total_assets";
+        param.put(total_interest_bearing_liabilities_div_total_assets, getPercentage(tibl,targetAssetsLiability.getTotal_assets().get(0)));
+        param.put(total_interest_bearing_liabilities_div_total_assets2, getPercentage(tibl2,targetAssetsLiability2.getTotal_assets().get(0)));
+        param.put(total_interest_bearing_liabilities_div_total_assets3, getPercentage(tibl3,targetAssetsLiability3.getTotal_assets().get(0)));
+
+
+
         double tcftiblc=tcf-tibl;
         double tcftiblc2=tcf2-tibl2;
         double tcftiblc3=tcf3-tibl3;

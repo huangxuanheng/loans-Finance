@@ -118,7 +118,7 @@ public class AnalzeLiabilityTestTest {
 
 
     /**
-     * 车身附件及饰件
+     * 白色家电
      * @throws IOException
      * @throws URISyntaxException
      */
