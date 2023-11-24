@@ -215,4 +215,42 @@ public class AnalzeLiabilityTestTest {
         String htmlFileName= "finance.html";
         analyzeService.analysisFinanceToHtml(type, count,targetSymbol,targetSymbol2,targetSymbol3,htmlFileName);
     }
+
+    /**
+     * 中药
+     * @throws IOException
+     * @throws URISyntaxException
+     */
+    @Test
+    public void zhongyao() throws IOException, URISyntaxException {
+        String type = "Q4";
+        //五年
+        int count = 6;
+        //目标好公司股票代码
+        String targetSymbol="600285";
+        //同行公司股票代码
+        String targetSymbol2="000538";
+        String targetSymbol3="600436";
+        String htmlFileName= "finance.html";
+        analyzeService.analysisFinanceToHtml(type, count,targetSymbol,targetSymbol2,targetSymbol3,htmlFileName);
+    }
+
+    /**
+     * 中药2
+     * @throws IOException
+     * @throws URISyntaxException
+     */
+    @Test
+    public void zhongyao2() throws IOException, URISyntaxException {
+        String type = "Q4";
+        //五年
+        int count = 6;
+        //目标好公司股票代码
+        String targetSymbol="603896";
+        //同行公司股票代码
+        String targetSymbol2="000538";
+        String targetSymbol3="600436";
+        String htmlFileName= "finance.html";
+        analyzeService.analysisFinanceToHtml(type, count,targetSymbol,targetSymbol2,targetSymbol3,htmlFileName);
+    }
 }
