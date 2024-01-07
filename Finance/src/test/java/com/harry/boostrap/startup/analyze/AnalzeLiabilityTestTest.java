@@ -59,7 +59,7 @@ public class AnalzeLiabilityTestTest {
         String targetSymbol="600036";
         //同行公司股票代码
         String targetSymbol2="601166";
-        String targetSymbol3="601166";
+        String targetSymbol3="601998";
         String htmlFileName= "finance.html";
         analyzeService.analysisFinanceToHtml(type, count,targetSymbol,targetSymbol2,targetSymbol3,htmlFileName);
     }
@@ -289,6 +289,46 @@ public class AnalzeLiabilityTestTest {
         //同行公司股票代码
         String targetSymbol2="601919";
         String targetSymbol3="601866";
+        String htmlFileName= "finance.html";
+        analyzeService.analysisFinanceToHtml(type, count,targetSymbol,targetSymbol2,targetSymbol3,htmlFileName);
+    }
+
+
+    /**
+     * 调味发酵品
+     * @throws IOException
+     * @throws URISyntaxException
+     */
+    @Test
+    public void tiaoweifajiapin() throws IOException, URISyntaxException {
+        String type = "Q4";
+        //五年
+        int count = 6;
+        //目标好公司股票代码
+        String targetSymbol="603288";
+        //同行公司股票代码
+        String targetSymbol2="600872";
+        String targetSymbol3="603027";
+        String htmlFileName= "finance.html";
+        analyzeService.analysisFinanceToHtml(type, count,targetSymbol,targetSymbol2,targetSymbol3,htmlFileName);
+    }
+
+
+    /**
+     * 其他生物制品
+     * @throws IOException
+     * @throws URISyntaxException
+     */
+    @Test
+    public void qitashengwuzhipin() throws IOException, URISyntaxException {
+        String type = "Q4";
+        //五年
+        int count = 6;
+        //目标好公司股票代码
+        String targetSymbol="600211";
+        //同行公司股票代码
+        String targetSymbol2="000661";
+        String targetSymbol3="603087";
         String htmlFileName= "finance.html";
         analyzeService.analysisFinanceToHtml(type, count,targetSymbol,targetSymbol2,targetSymbol3,htmlFileName);
     }

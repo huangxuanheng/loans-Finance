@@ -143,9 +143,9 @@ public class AnalyzeService {
             throw new RuntimeException(e);
         }
         //股息
-        Double dividend = quote.getDividend();
-        Double dividend2 = quote2.getDividend();
-        Double dividend3 = quote3.getDividend();
+        Double dividend = quote.getDividend()==null?0:quote.getDividend();
+        Double dividend2 = quote2.getDividend()==null?0:quote2.getDividend();
+        Double dividend3 = quote3.getDividend()==null?0:quote3.getDividend();
         //10年国债收益率
         double bondYield = TenYearTreasuryBondYield.getBondYield();
         //分红时间
@@ -199,16 +199,16 @@ public class AnalyzeService {
         String target_dividend2="target2_dividend";
         String target_dividend3="target3_dividend";
         //股息
-        params.put(target_dividend,getStrValueNoUnit(quote.getDividend()));
-        params.put(target_dividend2,getStrValueNoUnit(quote2.getDividend()));
-        params.put(target_dividend3,getStrValueNoUnit(quote3.getDividend()));
+        params.put(target_dividend,getStrValueNoUnit(dividend));
+        params.put(target_dividend2,getStrValueNoUnit(dividend2));
+        params.put(target_dividend3,getStrValueNoUnit(dividend3));
         String target_dividend_yield="target_dividend_yield";
         String target_dividend_yield2="target2_dividend_yield";
         String target_dividend_yield3="target3_dividend_yield";
         //实际股息率
-        params.put(target_dividend_yield,getStrValueNoUnit(quote.getDividend_yield())+"%");
-        params.put(target_dividend_yield2,getStrValueNoUnit(quote2.getDividend_yield())+"%");
-        params.put(target_dividend_yield3,getStrValueNoUnit(quote3.getDividend_yield())+"%");
+        params.put(target_dividend_yield,getStrValueNoUnit(quote.getDividend_yield()==null?0:quote.getDividend_yield())+"%");
+        params.put(target_dividend_yield2,getStrValueNoUnit(quote2.getDividend_yield()==null?0:quote2.getDividend_yield())+"%");
+        params.put(target_dividend_yield3,getStrValueNoUnit(quote3.getDividend_yield()==null?0:quote3.getDividend_yield())+"%");
 
         return params;
     }

@@ -182,4 +182,12 @@ public class Interest extends BaseEntity {
     public List<Double> getFinancing_expenses() {
         return getInitValue(financing_expenses);
     }
+
+    public List<Double> getFinance_cost_interest_income() {
+        return getInitValue(finance_cost_interest_income);
+    }
+
+    public List<Double> getFinance_cost_interest_fee() {
+        return getInitValue(finance_cost_interest_fee);
+    }
 }

@@ -385,4 +385,7 @@ public class AssetsLiability extends BaseEntity {
         return getInitValue(inventory);
     }
 
+    public List<Double> getSalable_financial_assets() {
+        return getInitValue(salable_financial_assets);
+    }
 }
