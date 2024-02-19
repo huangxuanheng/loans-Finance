@@ -246,7 +246,7 @@ public class AnalzeLiabilityTestTest {
         //五年
         int count = 6;
         //目标好公司股票代码
-        String targetSymbol="603896";
+        String targetSymbol="600750";
         //同行公司股票代码
         String targetSymbol2="000538";
         String targetSymbol3="600436";
