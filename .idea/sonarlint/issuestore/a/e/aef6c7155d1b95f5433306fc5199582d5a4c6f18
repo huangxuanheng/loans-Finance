@@ -1,0 +1,13 @@
+
+E
+java:S3740("/Provide the parametrized type for this generic.(ïó¹ÿ
+t
+java:S1488*"YImmediately return this expression instead of assigning it to the temporary variable "t".(‡ç™±üÿÿÿÿ
+t
+java:S1488<"YImmediately return this expression instead of assigning it to the temporary variable "t".(‡ç™±üÿÿÿÿ
+U
+java:S1118":Add a private constructor to hide the implicit public one.(ë¢ñãûÿÿÿÿ
+Š
+java:S1130"tRemove the declaration of thrown exception 'java.net.URISyntaxException', as it cannot be thrown from method's body.(Ã¨Ëù
+Q	java:S125"<This block of commented-out lines of code should be removed.(’ŒŸ³
+Q	java:S125"<This block of commented-out lines of code should be removed.(–žôª

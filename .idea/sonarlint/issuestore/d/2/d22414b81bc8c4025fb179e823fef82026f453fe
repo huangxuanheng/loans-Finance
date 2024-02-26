@@ -1,0 +1,7 @@
+
+|	java:S116"[Rename this field "asset_liab_ratio" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ßáÓÈıÿÿÿÿ8š¶´1
+y	java:S116"]Rename this field "gross_selling_rate" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Î±ËÛ8š¶´1
+{	java:S116"_Rename this field "operating_income_yoy" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(†×ä8š¶´1
+j	java:S100("NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ˆÊ•8 š¶´1
+U
+java:S1128"8Remove this unused import 'org.assertj.core.util.Lists'.(±Ø‚›8 š¶´1

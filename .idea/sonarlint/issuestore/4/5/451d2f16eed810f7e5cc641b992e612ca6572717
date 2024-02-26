@@ -1,0 +1,15 @@
+
+Ã
+java:S1192:"¬Define a constant instead of duplicating this literal "æ¯›åˆ©ç‡ä¸»è¦çœ‹ä¸¤ç‚¹ï¼Œæ•°å€¼å’Œæ³¢å¹…ã€‚æ¯›åˆ©ç‡å°äº 40%æˆ–æ³¢åŠ¨å¹…åº¦å¤§äº 20%çš„å…¬å¸æ·˜æ±°æ‰" 4 times.(˜Ñéî
+v
+java:S4144%"[Update this method so that its implementation is not identical to "createExcel" on line 27.(è¡ëîşÿÿÿÿ
+{
+java:S4144_"`Update this method so that its implementation is not identical to "getExportHeaders" on line 54.(–Ìó½şÿÿÿÿ
+U
+java:S1118":Add a private constructor to hide the implicit public one.(ûß³¬üÿÿÿÿ
+V	java:S125!"<This block of commented-out lines of code should be removed.(ï®™“ıÿÿÿÿ
+V	java:S125+"<This block of commented-out lines of code should be removed.(ï®™“ıÿÿÿÿ
+V	java:S1259"<This block of commented-out lines of code should be removed.(á¾Öÿÿÿÿÿ
+V	java:S125b"<This block of commented-out lines of code should be removed.(á¾Öÿÿÿÿÿ
+Q
+java:S1144_"6Remove this unused private "getExportHeaders2" method.(–Ìó½şÿÿÿÿ

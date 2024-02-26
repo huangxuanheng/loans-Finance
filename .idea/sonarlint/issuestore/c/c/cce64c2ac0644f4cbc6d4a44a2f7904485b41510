@@ -1,0 +1,13 @@
+
+p
+java:S1192["TDefine a constant instead of duplicating this literal "è‚¡æ¯ç‡ï¼ˆTTMï¼‰:" 3 times.(±Ğ8ùôè´³1
+|
+java:S1192M"ZDefine a constant instead of duplicating this literal "åŠ¨æ€å¸‚ç›ˆç‡ï¼ˆTTMï¼‰:" 3 times.(’¯½¡øÿÿÿÿ8ùôè´³1
+l
+java:S1192@"PDefine a constant instead of duplicating this literal "æµé€šå¸‚å€¼ï¼š" 3 times.(üœüw8ùôè´³1
+p
+java:S1192."SDefine a constant instead of duplicating this literal "å½“æ—¥æˆäº¤é¢ï¼š" 4 times.(Ø±ˆŠ8ùôè´³1
+z
+java:S1488t"]Immediately return this expression instead of assigning it to the temporary variable "quote".(Æºº¨8·ÈÎ³³1
+t
+java:S3776""RRefactor this method to reduce its Cognitive Complexity from 22 to the 15 allowed.(Ñçœ·üÿÿÿÿ8ğõè´³1

@@ -1,0 +1,13 @@
+
+`	java:S112&"FDefine and throw a dedicated exception instead of using a generic one.(ëÇÈÕıÿÿÿÿ
+r
+java:S1192C"WDefine a constant instead of duplicating this literal "å‡€åˆ©æ¶¦å«é‡‘é‡(%):" 3 times.(‰Úµ³úÿÿÿÿ
+
+java:S1192d"iDefine a constant instead of duplicating this literal "ç»è¥æ´»åŠ¨äº§ç”Ÿçš„ç°é‡‘æµé‡å‡€é¢:" 3 times.(¡§Å
+g	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Áˆ¥
+f	java:S117’"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¤¹Èe
+U
+java:S1118":Add a private constructor to hide the implicit public one.(«™¨¬ÿÿÿÿÿ
+E	java:S106*"+Replace this use of System.out by a logger.(Å­Ëİúÿÿÿÿ
+h
+java:S3776]"RRefactor this method to reduce its Cognitive Complexity from 20 to the 15 allowed.(¬âĞ™

@@ -1,0 +1,37 @@
+
+t	java:S116"XRename this field "total_revenue" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Èçâ8«ëí¸´1
+{	java:S116"ZRename this field "operating_costs" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(îÆ„¾ùÿÿÿÿ8«ëí¸´1
+z	java:S116"YRename this field "operating_cost" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(šá¨Ïşÿÿÿÿ8«ëí¸´1
+‰	java:S116#"hRename this field "operating_taxes_and_surcharge" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¾¤İ‹ûÿÿÿÿ8«ëí¸´1
+p	java:S116("TRename this field "sales_fee" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ı¸ÍÓ8«ëí¸´1
+v	java:S116,"URename this field "manage_fee" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¥Å†Üûÿÿÿÿ8«ëí¸´1
+o	java:S1160"SRename this field "rad_cost" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÿ´‹û8«ëí¸´1
+~	java:S1164"]Rename this field "financing_expenses" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(îŞĞûÿÿÿÿ8«ëí¸´1
+€	java:S1168"dRename this field "finance_cost_interest_fee" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ç…8«ëí¸´1
+ˆ	java:S116<"gRename this field "finance_cost_interest_income" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(é´êşÿÿÿÿ8«ëí¸´1
+	java:S116@"`Rename this field "asset_impairment_loss" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¯İí÷ıÿÿÿÿ8«ëí¸´1
+}	java:S116D"aRename this field "credit_impairment_loss" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(„Û»¸8«ëí¸´1
+|	java:S116H"`Rename this field "income_from_chg_in_fv" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ŠüÚÛ8«ëí¸´1
+y	java:S116L"XRename this field "invest_income" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(†Óâøÿÿÿÿ8«ëí¸´1
+‚	java:S116P"aRename this field "invest_incomes_from_rr" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(­šÌ˜üÿÿÿÿ8«ëí¸´1
+|	java:S116T"`Rename this field "asset_disposal_income" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(À…Ã8«ëí¸´1
+s	java:S116X"WRename this field "other_income" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ìö‹¿8«ëí¸´1
+{	java:S116`"_Rename this field "non_operating_income" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(×ìÉ­8«ëí¸´1
+€	java:S116d"_Rename this field "non_operating_payout" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ñ¾‰Äüÿÿÿÿ8«ëí¸´1
+|	java:S116h"[Rename this field "profit_total_amt" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÍØô³ûÿÿÿÿ8«ëí¸´1
+	java:S116l"^Rename this field "income_tax_expenses" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¢ÈÆùÿÿÿÿ8«ëí¸´1
+q	java:S116s"URename this field "net_profit" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¤¸…î8«ëí¸´1
+‚	java:S116w"aRename this field "continous_operating_np" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(úäö÷úÿÿÿÿ8«ëí¸´1
+w	java:S116}"\Rename this field "net_profit_atsopc" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ˆ“Ì?8«ëí¸´1
+s	java:S116"WRename this field "minority_gal" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(²‹¦K8«ëí¸´1
+…	java:S116…"hRename this field "net_profit_after_nrgal_atsolc" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(šĞˆŞ8«ëí¸´1
+†	java:S116‰"dRename this field "othr_compre_income_atoopc" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(—’ñÏşÿÿÿÿ8«ëí¸´1
+y	java:S116"]Rename this field "othr_compre_income" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÁÌê58«ëí¸´1
+€	java:S116‘"^Rename this field "total_compre_income" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(•‡Šüÿÿÿÿ8«ëí¸´1
+‡	java:S116•"eRename this field "total_compre_income_atsopc" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(èá·Äıÿÿÿÿ8«ëí¸´1
+€	java:S116™"cRename this field "total_compre_income_atms" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ãĞÉ±8«ëí¸´1
+k	java:S100¦"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¤®8­ëí¸´1
+k	java:S100ª"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‹òâº8®ëí¸´1
+k	java:S100®"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Å¤Ëş8®ëí¸´1
+k	java:S100²"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(éä÷Æ8®ëí¸´1
+k	java:S100¶"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Âï¾±8®ëí¸´1

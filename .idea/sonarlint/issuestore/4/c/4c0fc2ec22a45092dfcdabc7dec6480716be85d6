@@ -1,0 +1,37 @@
+
+ƒ	java:S116"iRename this field "cash_received_of_sales_service" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(„ø—şÿÿÿÿ
+}	java:S116"cRename this field "refund_of_tax_and_levies" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÙŸ»ıÿÿÿÿ
+x	java:S116"cRename this field "cash_received_of_othr_oa" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(÷¬Šª
+w	java:S116"bRename this field "sub_total_of_ci_from_oa" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(È†ú…
+ƒ	java:S116""iRename this field "goods_buy_and_service_cash_pay" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Œëëüÿÿÿÿ
+~	java:S116&"dRename this field "cash_paid_to_employee_etc" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(à¸¬äüÿÿÿÿ
+z	java:S116+"`Rename this field "payments_of_all_taxes" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¯‡µŸşÿÿÿÿ
+|	java:S116/"gRename this field "othrcash_paid_relating_to_oa" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(€ıµ
+x	java:S1163"cRename this field "sub_total_of_cos_from_oa" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(©·Í¦
+k	java:S1168"VRename this field "ncf_from_oa" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Í†‘¶
+}	java:S116<"hRename this field "cash_received_of_dspsl_invest" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(½óÊÆ
+{	java:S116@"fRename this field "invest_income_cash_received" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(„İšó
+{	java:S116D"fRename this field "net_cash_of_disposal_assets" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(€ªââ
+}	java:S116H"cRename this field "cash_received_of_othr_ia" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÛİŠúÿÿÿÿ
+w	java:S116L"bRename this field "sub_total_of_ci_from_ia" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(±‚­´
+y	java:S116R"_Rename this field "cash_paid_for_assets" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÇÙÚ”üÿÿÿÿ
+p	java:S116V"[Rename this field "invest_paid_cash" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÇÕ¨í
+}	java:S116Z"cRename this field "net_cash_amt_from_branch" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÜÖÅÄüÿÿÿÿ
+	java:S116^"gRename this field "othrcash_paid_relating_to_ia" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(›¿˜“øÿÿÿÿ
+x	java:S116b"cRename this field "sub_total_of_cos_from_ia" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(³Ş—É
+k	java:S116g"VRename this field "ncf_from_ia" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ø¥¦
+}	java:S116k"iRename this field "cash_received_of_absorb_invest" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¢„›B
+€	java:S116o"fRename this field "cash_received_from_investor" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¯€î±øÿÿÿÿ
+	java:S116s"eRename this field "cash_received_of_borrowing" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ı¡Şéøÿÿÿÿ
+}	java:S116w"cRename this field "cash_received_of_othr_fa" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÌÜ´¬ùÿÿÿÿ
+|	java:S116~"bRename this field "sub_total_of_ci_from_fa" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ºÊ¥’úÿÿÿÿ
+w	java:S116ƒ"\Rename this field "cash_pay_for_debt" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(…èÚüÿÿÿÿ
+	java:S116‰"dRename this field "cash_paid_of_distribution" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(³Îİÿùÿÿÿÿ
+	java:S116"iRename this field "branch_paid_to_minority_holder" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ç×´
+}	java:S116‘"gRename this field "othrcash_paid_relating_to_fa" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ì³´
+y	java:S116•"cRename this field "sub_total_of_cos_from_fa" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Õ‚ÒÑ
+l	java:S116™"VRename this field "ncf_from_fa" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ã³Ö
+~	java:S116"hRename this field "effect_of_exchange_chg_on_cce" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ö³·‡
+t	java:S116¢"^Rename this field "net_increase_in_cce" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¹ÖœÍ
+|	java:S116¦"aRename this field "initial_balance_of_cce" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(å¡½¡ùÿÿÿÿ
+z	java:S116¬"_Rename this field "final_balance_of_cce" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Í†´´üÿÿÿÿ

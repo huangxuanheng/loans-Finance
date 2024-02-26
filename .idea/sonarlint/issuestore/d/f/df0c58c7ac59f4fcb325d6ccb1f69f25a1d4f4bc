@@ -1,0 +1,16 @@
+
+a	java:S112È"FDefine and throw a dedicated exception instead of using a generic one.(ëÇÈÕıÿÿÿÿ
+J
+java:S37401"/Provide the parametrized type for this generic.(–×ÜÆÿÿÿÿÿ
+t
+java:S1192{"YDefine a constant instead of duplicating this literal "å‡€èµ„äº§æ”¶ç›Šç‡ROEï¼š" 3 times.( ¡õãÿÿÿÿÿ
+r
+java:S1192å"VDefine a constant instead of duplicating this literal "äº§å“ç«äº‰åŠ›(%)ï¼š" 5 times.(ş¨ßüÿÿÿÿ
+w
+java:S1192Ÿ"`Define a constant instead of duplicating this literal "è¥ä¸šæ”¶å…¥å¢é•¿ç‡ï¼ˆ%ï¼‰ï¼š" 3 times.(„®·
+l	java:S117Æ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¨›ªÇùÿÿÿÿ
+n
+java:S3776«"RRefactor this method to reduce its Cognitive Complexity from 46 to the 15 allowed.(Û¯Üİıÿÿÿÿ
+`
+java:S3358Ã"DExtract this nested ternary operation into an independent statement.(òØÿÿÿÿÿ
+F	java:S106Î"+Replace this use of System.out by a logger.(Å­Ëİúÿÿÿÿ

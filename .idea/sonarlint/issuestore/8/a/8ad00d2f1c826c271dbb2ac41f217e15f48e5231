@@ -1,0 +1,26 @@
+
+J
+java:S3740B"/Provide the parametrized type for this generic.(ŸŸŞúÿÿÿÿ
+K
+java:S3740Ë"/Provide the parametrized type for this generic.(ŸŸŞúÿÿÿÿ
+^
+java:S2184¥"BCast one of the operands of this addition operation to a "double".(Ÿó¿øÿÿÿÿ
+V	java:S107<"<Method has 8 parameters, which is greater than 7 authorized.(ïîóìüÿÿÿÿ
+U
+java:S1118 ":Add a private constructor to hide the implicit public one.(ÙşÍ…şÿÿÿÿ
+m
+java:S3776<"RRefactor this method to reduce its Cognitive Complexity from 21 to the 15 allowed.(ïîóìüÿÿÿÿ
+N
+java:S1172<"3Remove this unused method parameter "cellStyleMap".(ïîóìüÿÿÿÿ
+V	java:S125E"<This block of commented-out lines of code should be removed.(œ÷çÊşÿÿÿÿ
+s	java:S131u"YComplete cases by adding the missing enum constants or add a default case to this switch.(•Ò°ñùÿÿÿÿ
+n
+java:S3776Å"RRefactor this method to reduce its Cognitive Complexity from 23 to the 15 allowed.(Òá°¥ûÿÿÿÿ
+W	java:S125Ø"<This block of commented-out lines of code should be removed.(ÔÄòâÿÿÿÿÿ
+t	java:S131ƒ"YComplete cases by adding the missing enum constants or add a default case to this switch.(•Ò°ñùÿÿÿÿ
+_
+java:S1128"DRemove this unused import 'org.apache.poi.xssf.usermodel.XSSFColor'.(³¡ô¤ıÿÿÿÿ
+;
+java:S1128"%Remove this unused import 'java.awt'.(ï´µ©
+F
+java:S1128"+Remove this unused import 'java.awt.Color'.(ùÈãÈøÿÿÿÿ
