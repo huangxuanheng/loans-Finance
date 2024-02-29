@@ -2,6 +2,7 @@ package com.harry.boostrap.startup.bank;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.assertj.core.util.Lists;
 
 /**
  * @author Harry
@@ -130,7 +131,7 @@ public class EqualAmoutInterest {
         System.out.println();
     }
 
-    public static List<RepaymentPlan>getAllPlans(String loanUnit, LoanType loanType, long principal, float interest, InterestType interestType, int numOfPeriods, String startDate, String endDate){
+    public static List<RepaymentPlan>getAllPlans(String loanUnit, LoanType loanType, float principal, float interest, InterestType interestType, int numOfPeriods, String startDate, String endDate){
         return getAllPlans(loanUnit,loanType,principal,interest,interestType,numOfPeriods,startDate,endDate,0);
     }
 
@@ -146,7 +147,7 @@ public class EqualAmoutInterest {
      * @param endDate
      * @return
      */
-    public static List<RepaymentPlan>getAllPlans(String loanUnit, LoanType loanType, long principal,
+    public static List<RepaymentPlan>getAllPlans(String loanUnit, LoanType loanType, float principal,
                                                  float interest, InterestType interestType, int numOfPeriods,
                                                  String startDate, String endDate,float damagesRate){
         LoanInfo loanInfo=new LoanInfo();
@@ -166,6 +167,9 @@ public class EqualAmoutInterest {
         repaymentPlan.setDamagesRate(damagesRate);
 
         List<RepaymentPlan>plans=new ArrayList<>();
+        if(principal==0){
+            return Lists.newArrayList(repaymentPlan);
+        }
         while (repaymentPlan!=null){
             plans.add(repaymentPlan);
             repaymentPlan=repaymentPlan.getNextPlan();

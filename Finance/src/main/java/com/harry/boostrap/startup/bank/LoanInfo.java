@@ -52,7 +52,7 @@ public class LoanInfo {
         return principal;
     }
 
-    public void setPrincipal(long principal) {
+    public void setPrincipal(float principal) {
         this.principal = principal;
     }
 
