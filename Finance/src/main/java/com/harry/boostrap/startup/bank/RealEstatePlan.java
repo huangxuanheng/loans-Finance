@@ -15,10 +15,15 @@ public class RealEstatePlan {
     private float principal;
     //月租金
     private float rent;
+
     //净现值
     private float npv;
     //月供
     private float monthlySupply;
+    /**
+     * 贷款年化率
+     */
+    private float loadAnnualizedRate;
     //投资回报率
     private float rate;
     //总利息

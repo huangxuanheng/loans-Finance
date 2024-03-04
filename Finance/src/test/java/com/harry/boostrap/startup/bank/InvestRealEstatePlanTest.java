@@ -35,13 +35,13 @@ public class InvestRealEstatePlanTest {
 
     @Test
     public void test2(){
-        float fullPayment=146000;
+        float fullPayment=152000;
         //月租金收入
         float rent=1500;
         //贷款年利率
-        float interest=0.052f;
+        float interest=0.082f;
         //贷款期数
-        int numOfPeriods=120;
+        int numOfPeriods=360;
         String startDate=DateUtils.formatDateToStr(new Date());
 
         //初始投入金额
@@ -83,6 +83,7 @@ public class InvestRealEstatePlanTest {
             realEstatePlan.setRent(rent);
             realEstatePlan.setPrincipal(principal);
             realEstatePlan.setMonthlySupply(planList.get(0).getTotal());
+            realEstatePlan.setLoadAnnualizedRate(interest);
             realEstatePlan.setTotalInterest(totalInterest);
             realEstatePlan.setTotalRepayment(totalRepayment);
             realEstatePlans.add(realEstatePlan);
@@ -103,7 +104,7 @@ public class InvestRealEstatePlanTest {
         });
         for (RealEstatePlan realEstatePlan:realEstatePlans){
             System.out.println("初始投入资金："+realEstatePlan.getInput()+" 元");
-            System.out.println("贷款总额："+realEstatePlan.getPrincipal()+"元,月供："+realEstatePlan.getMonthlySupply()+"元");
+            System.out.println("贷款总额："+realEstatePlan.getPrincipal()+"元,月供："+realEstatePlan.getMonthlySupply()+"元，贷款年化率："+realEstatePlan.getLoadAnnualizedRate()*100+"%");
             System.out.println("净现值："+realEstatePlan.getNpv()+"元");
             System.out.println("投资回报率："+realEstatePlan.getRate()*100+"%, "+Math.round(1/realEstatePlan.getRate())+" 年内回本");
             System.out.println("总利息是："+realEstatePlan.getTotalInterest()+",总还款："+realEstatePlan.getTotalRepayment());
