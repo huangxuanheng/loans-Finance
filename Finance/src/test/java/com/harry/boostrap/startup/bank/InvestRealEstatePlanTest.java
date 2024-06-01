@@ -15,15 +15,15 @@ public class InvestRealEstatePlanTest {
     @Test
     public void test(){
         //初始投入金额
-        float input=100000;
+        float input=0;
         //月租金收入
-        long rent=2100;
+        long rent=1500;
         //贷款总额
-        long principal=100000;
+        long principal=180000;
         //贷款年利率
-        float interest=0.052f;
+        float interest=0.035f;
         //贷款期数
-        int numOfPeriods=120;
+        int numOfPeriods=360;
         String startDate=DateUtils.formatDateToStr(new Date());
         List<RepaymentPlan> planList = EqualAmoutInterest.getAllPlans("建设银行",
             LoanType.EQUAL_AMOUT_PRINCIPAL_AND_INTEREST, principal, interest, InterestType.Y, numOfPeriods,
@@ -35,17 +35,19 @@ public class InvestRealEstatePlanTest {
 
     @Test
     public void test2(){
-        float fullPayment=152000;
+        float fullPayment=180000;
+        //初始投入金额
+        float input=0;
         //月租金收入
         float rent=1500;
         //贷款年利率
-        float interest=0.082f;
+//        float interest=0.1f;
+        float interest=0.062f;
         //贷款期数
         int numOfPeriods=360;
         String startDate=DateUtils.formatDateToStr(new Date());
 
-        //初始投入金额
-        float input=0;
+
 
         //贷款总额
         float principal= 0;
@@ -53,7 +55,7 @@ public class InvestRealEstatePlanTest {
         final int min=10000;
 
         List<RealEstatePlan>realEstatePlans=new ArrayList<>();
-        for (int x=min;x<fullPayment;x+=min){
+        for (float x=input;x<fullPayment;x+=min){
             if(input>fullPayment){
                 break;
             }
@@ -69,7 +71,7 @@ public class InvestRealEstatePlanTest {
             //净现值
             float npv= rent-planList.get(0).getTotal();
             //投资回报率
-            float rate=npv*12/input;
+            float rate=input==0?1:npv*12/input;
             float totalInterest=0;
             float totalRepayment=0;
             for (RepaymentPlan plan:planList){
@@ -106,14 +108,19 @@ public class InvestRealEstatePlanTest {
             System.out.println("初始投入资金："+realEstatePlan.getInput()+" 元");
             System.out.println("贷款总额："+realEstatePlan.getPrincipal()+"元,月供："+realEstatePlan.getMonthlySupply()+"元，贷款年化率："+realEstatePlan.getLoadAnnualizedRate()*100+"%");
             System.out.println("净现值："+realEstatePlan.getNpv()+"元");
-            System.out.println("投资回报率："+realEstatePlan.getRate()*100+"%, "+Math.round(1/realEstatePlan.getRate())+" 年内回本");
+            if(realEstatePlan.getInput()==0){
+                System.out.println("投资回报率：无穷大 0年内回本");
+            }else {
+                System.out.println("投资回报率："+realEstatePlan.getRate()*100+"%, "+Math.round(1/realEstatePlan.getRate())+" 年内回本");
+            }
+
             System.out.println("总利息是："+realEstatePlan.getTotalInterest()+",总还款："+realEstatePlan.getTotalRepayment());
             System.out.println("----------------------------------------------------------------------");
         }
     }
     private void calculateInvestmentReturnRate(float input, long rent, RepaymentPlan repaymentPlan) {
         long npv= (long) (rent-repaymentPlan.getTotal());
-        float rate=npv*12/input;
+        float rate=input==0?1:npv*12/input;
         System.out.println("初始投入资金："+input+" 元");
         System.out.println("贷款总额："+repaymentPlan.getLoanInfo().getPrincipal()+"元,月供："+repaymentPlan.getTotal()+"元");
         System.out.println("净现值："+npv+"元");

@@ -389,13 +389,21 @@ public class AnalyzeService {
         param.put(total_interest_bearing_liabilities_div_total_assets3, getPercentage(tibl3,targetAssetsLiability3.getTotal_assets().get(0)));
 
 
-
         double tcftiblc=tcf-tibl;
         double tcftiblc2=tcf2-tibl2;
         double tcftiblc3=tcf3-tibl3;
         param.put(total_currency_funds_total_interest_bearing_liabilities_c, getStrValue(tcftiblc));
         param.put(total_currency_funds_total_interest_bearing_liabilities_c2, getStrValue(tcftiblc2));
         param.put(total_currency_funds_total_interest_bearing_liabilities_c3, getStrValue(tcftiblc3));
+        //准货币资金-有息负债差额/总负债
+        String total_currency_funds_interest_bearing_liabilities_c_div_total_assets=target+"currency_funds_interest_bearing_liabilities_c_div_total_assets";
+        String total_currency_funds_interest_bearing_liabilities_c_div_total_assets2=target2+"currency_funds_interest_bearing_liabilities_c_div_total_assets";
+        String total_currency_funds_interest_bearing_liabilities_c_div_total_assets3=target3+"currency_funds_interest_bearing_liabilities_c_div_total_assets";
+
+        param.put(total_currency_funds_interest_bearing_liabilities_c_div_total_assets, getPercentage(tcftiblc,targetAssetsLiability.getTotal_liab().get(0)));
+        param.put(total_currency_funds_interest_bearing_liabilities_c_div_total_assets2, getPercentage(tcftiblc2,targetAssetsLiability2.getTotal_liab().get(0)));
+        param.put(total_currency_funds_interest_bearing_liabilities_c_div_total_assets3, getPercentage(tcftiblc3,targetAssetsLiability3.getTotal_liab().get(0)));
+
 
         //应付预收合计:应付票据+应付账款+预收款项+合同负债
         String total_payable_receivable=target+"total_payable_receivable";
@@ -428,6 +436,14 @@ public class AnalyzeService {
         param.put(total_pay_receivable_c, getStrValue(tpr-tprc));
         param.put(total_pay_receivable_c2, getStrValue(tpr2-tprc2));
         param.put(total_pay_receivable_c3, getStrValue(tpr3-tprc3));
+        //（应付预收-应收预付）/总资产
+        String total_pay_receivable_c_div_total_assets=target+"total_pay_receivable_c_div_total_assets";
+        String total_pay_receivable_c_div_total_assets2=target2+"total_pay_receivable_c_div_total_assets";
+        String total_pay_receivable_c_div_total_assets3=target3+"total_pay_receivable_c_div_total_assets";
+
+        param.put(total_pay_receivable_c_div_total_assets, getPercentage(tpr-tprc,targetAssetsLiability.getTotal_liab().get(0)));
+        param.put(total_pay_receivable_c_div_total_assets2, getPercentage(tpr2-tprc2,targetAssetsLiability2.getTotal_liab().get(0)));
+        param.put(total_pay_receivable_c_div_total_assets3, getPercentage(tpr3-tprc3,targetAssetsLiability3.getTotal_liab().get(0)));
 
         //应收账款+合同资产
         String total_account_contractual=target+"total_account_contractual";

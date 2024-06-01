@@ -332,4 +332,62 @@ public class AnalzeLiabilityTestTest {
         String htmlFileName= "finance.html";
         analyzeService.analysisFinanceToHtml(type, count,targetSymbol,targetSymbol2,targetSymbol3,htmlFileName);
     }
+
+    /**
+     * 新能源发电
+     * @throws IOException
+     * @throws URISyntaxException
+     */
+    @Test
+    public void newEnergyGeneration() throws IOException, URISyntaxException {
+        String type = "Q4";
+        //五年
+        int count = 6;
+        //目标好公司股票代码
+        String targetSymbol="601985";
+        //同行公司股票代码
+        String targetSymbol2="003816";
+        String targetSymbol3="600905";
+        String htmlFileName= "finance.html";
+        analyzeService.analysisFinanceToHtml(type, count,targetSymbol,targetSymbol2,targetSymbol3,htmlFileName);
+    }
+
+    /**
+     * 光伏设备
+     * @throws IOException
+     * @throws URISyntaxException
+     */
+    @Test
+    public void guangfushebei() throws IOException, URISyntaxException {
+        String type = "Q4";
+        //五年
+        int count = 6;
+        //目标好公司股票代码
+        String targetSymbol="601012";
+        //同行公司股票代码
+        String targetSymbol2="600438";
+        String targetSymbol3="300274";
+        String htmlFileName= "finance.html";
+        analyzeService.analysisFinanceToHtml(type, count,targetSymbol,targetSymbol2,targetSymbol3,htmlFileName);
+    }
+
+
+    /**
+     * 火电
+     * @throws IOException
+     * @throws URISyntaxException
+     */
+    @Test
+    public void fire() throws IOException, URISyntaxException {
+        String type = "Q4";
+        //五年
+        int count = 6;
+        //目标好公司股票代码
+        String targetSymbol="001286";
+        //同行公司股票代码
+        String targetSymbol2="600795";
+        String targetSymbol3="600642";
+        String htmlFileName= "finance.html";
+        analyzeService.analysisFinanceToHtml(type, count,targetSymbol,targetSymbol2,targetSymbol3,htmlFileName);
+    }
 }
