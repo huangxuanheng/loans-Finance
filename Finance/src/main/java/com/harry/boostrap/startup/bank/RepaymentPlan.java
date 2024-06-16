@@ -32,7 +32,7 @@ public class RepaymentPlan {
     private  float principal;
 
     private float total=0;
-
+    //利息
     private float interest=0;
 
     //违约金

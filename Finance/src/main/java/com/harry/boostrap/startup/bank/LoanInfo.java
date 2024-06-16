@@ -35,9 +35,11 @@ public class LoanInfo {
      * 贷款单位
      */
     private String loanUnit;
-
+    //日利率
     private float dayInterest;
+    //月利率
     private float monthInterest;
+    //年利率
     private float yearInterest;
 
     public String getLoanUnit() {
