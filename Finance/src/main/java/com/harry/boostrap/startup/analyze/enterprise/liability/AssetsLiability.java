@@ -296,6 +296,7 @@ public class AssetsLiability extends BaseEntity {
     private List<Double> other_eq_ins_invest;
 
 
+
     public List<Double> getCurrency_funds() {
         return getInitValue(currency_funds);
     }
@@ -357,6 +358,10 @@ public class AssetsLiability extends BaseEntity {
         return getInitValue(fixed_asset);
     }
 
+    public List<Double> getFixed_asset_sum() {
+        return getInitValue(fixed_asset_sum);
+    }
+
     public List<Double> getConstruction_in_process() {
         return getInitValue(construction_in_process);
     }
@@ -387,5 +392,21 @@ public class AssetsLiability extends BaseEntity {
 
     public List<Double> getSalable_financial_assets() {
         return getInitValue(salable_financial_assets);
+    }
+
+    public List<Double> getOthr_noncurrent_assets() {
+        return getInitValue(othr_noncurrent_assets);
+    }
+
+    public List<Double> getProductive_biological_assets() {
+        return getInitValue(productive_biological_assets);
+    }
+
+    public List<Double>getGoodwill(){
+        return getInitValue(goodwill);
+    }
+
+    public List<Double> getOthr_receivables() {
+        return getInitValue(othr_receivables);
     }
 }
