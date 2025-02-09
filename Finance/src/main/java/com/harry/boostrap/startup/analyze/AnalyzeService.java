@@ -346,6 +346,15 @@ public class AnalyzeService {
         param.put(total_currency_funds, getStrValue(tcf));
         param.put(total_currency_funds2, getStrValue(tcf2));
         param.put(total_currency_funds3, getStrValue(tcf3));
+        //准货币资金合计占比总资产
+        String total_currency_funds_div_total_assets=target+"total_currency_funds_div_total_assets";
+        String total_currency_funds_div_total_assets2=target2+"total_currency_funds_div_total_assets";
+        String total_currency_funds_div_total_assets3=target3+"total_currency_funds_div_total_assets";
+        param.put(total_currency_funds_div_total_assets, getPercentage(tcf,targetAssetsLiability.getTotal_assets().get(0)));
+        param.put(total_currency_funds_div_total_assets2, getPercentage(tcf2,targetAssetsLiability2.getTotal_assets().get(0)));
+        param.put(total_currency_funds_div_total_assets3, getPercentage(tcf3,targetAssetsLiability3.getTotal_assets().get(0)));
+
+
         //有息负债合计
         String total_interest_bearing_liabilities = target + "total_interest_bearing_liabilities";
         String total_interest_bearing_liabilities2 = target2 + "total_interest_bearing_liabilities";
@@ -400,9 +409,9 @@ public class AnalyzeService {
         String total_currency_funds_interest_bearing_liabilities_c_div_total_assets2=target2+"currency_funds_interest_bearing_liabilities_c_div_total_assets";
         String total_currency_funds_interest_bearing_liabilities_c_div_total_assets3=target3+"currency_funds_interest_bearing_liabilities_c_div_total_assets";
 
-        param.put(total_currency_funds_interest_bearing_liabilities_c_div_total_assets, getPercentage(tcftiblc,targetAssetsLiability.getTotal_liab().get(0)));
-        param.put(total_currency_funds_interest_bearing_liabilities_c_div_total_assets2, getPercentage(tcftiblc2,targetAssetsLiability2.getTotal_liab().get(0)));
-        param.put(total_currency_funds_interest_bearing_liabilities_c_div_total_assets3, getPercentage(tcftiblc3,targetAssetsLiability3.getTotal_liab().get(0)));
+        param.put(total_currency_funds_interest_bearing_liabilities_c_div_total_assets, getPercentage(tcftiblc,targetAssetsLiability.getTotal_assets().get(0)));
+        param.put(total_currency_funds_interest_bearing_liabilities_c_div_total_assets2, getPercentage(tcftiblc2,targetAssetsLiability2.getTotal_assets().get(0)));
+        param.put(total_currency_funds_interest_bearing_liabilities_c_div_total_assets3, getPercentage(tcftiblc3,targetAssetsLiability3.getTotal_assets().get(0)));
 
 
         //应付预收合计:应付票据+应付账款+预收款项+合同负债
@@ -479,9 +488,9 @@ public class AnalyzeService {
         String total_fixed_asset=target+"total_fixed_asset";
         String total_fixed_asset2=target2+"total_fixed_asset";
         String total_fixed_asset3=target3+"total_fixed_asset";
-        double tfa=targetAssetsLiability.getFixed_asset().get(0)+targetAssetsLiability.getConstruction_in_process().get(0)+targetAssetsLiability.getProject_goods_and_material().get(0);
-        double tfa2=targetAssetsLiability2.getFixed_asset().get(0)+targetAssetsLiability2.getConstruction_in_process().get(0)+targetAssetsLiability2.getProject_goods_and_material().get(0);
-        double tfa3=targetAssetsLiability3.getFixed_asset().get(0)+targetAssetsLiability3.getConstruction_in_process().get(0)+targetAssetsLiability3.getProject_goods_and_material().get(0);
+        double tfa=targetAssetsLiability.getFixed_asset_sum().get(0)+targetAssetsLiability.getConstruction_in_process().get(0)+targetAssetsLiability.getProject_goods_and_material().get(0);
+        double tfa2=targetAssetsLiability2.getFixed_asset_sum().get(0)+targetAssetsLiability2.getConstruction_in_process().get(0)+targetAssetsLiability2.getProject_goods_and_material().get(0);
+        double tfa3=targetAssetsLiability3.getFixed_asset_sum().get(0)+targetAssetsLiability3.getConstruction_in_process().get(0)+targetAssetsLiability3.getProject_goods_and_material().get(0);
         param.put(total_fixed_asset, getStrValue(tfa));
         param.put(total_fixed_asset2, getStrValue(tfa2));
         param.put(total_fixed_asset3, getStrValue(tfa3));
@@ -497,15 +506,28 @@ public class AnalyzeService {
         param.put(total_fixed_asset_div_total_asset3,
             getPercentage(tfa3, targetAssetsLiability3.getTotal_assets().get(0)));
 
+        String intangible_assets_div_total_assets=target+"intangible_assets_div_total_assets";
+        String intangible_assets_div_total_assets2=target2+"intangible_assets_div_total_assets";
+        String intangible_assets_div_total_assets3=target3+"intangible_assets_div_total_assets";
+        param.put(intangible_assets_div_total_assets,
+            getPercentage(targetAssetsLiability.getIntangible_assets().get(0), targetAssetsLiability.getTotal_assets().get(0)));
+        param.put(intangible_assets_div_total_assets2,
+            getPercentage(targetAssetsLiability2.getIntangible_assets().get(0), targetAssetsLiability2.getTotal_assets().get(0)));
+        param.put(intangible_assets_div_total_assets3,
+            getPercentage(targetAssetsLiability3.getIntangible_assets().get(0), targetAssetsLiability3.getTotal_assets().get(0)));
+
         //投资类资产合计:以公允价值计量且其变动计入当期损益的金融资产+债权投资+可供出售金融资产
         // +其他权益工具投资+其他债权投资+持有至到期投资+其他非流动金融资产+长期股权投资+投资性房地产
         //以公允价值计量且其变动计入当期损益的金融资产--->在财务报表中有声明，多数指：交易性金融资产
         String total_invest=target+"total_invest";
         String total_invest2=target2+"total_invest";
         String total_invest3=target3+"total_invest";
-        double ti=targetAssetsLiability.getSalable_financial_assets().get(0)+targetAssetsLiability.getOther_eq_ins_invest().get(0)+targetAssetsLiability.getOther_illiquid_fnncl_assets().get(0)+targetAssetsLiability.getLt_equity_invest().get(0)+targetAssetsLiability.getInvest_property().get(0);
-        double ti2=targetAssetsLiability2.getSalable_financial_assets().get(0)+targetAssetsLiability2.getOther_eq_ins_invest().get(0)+targetAssetsLiability2.getOther_illiquid_fnncl_assets().get(0)+targetAssetsLiability2.getLt_equity_invest().get(0)+targetAssetsLiability2.getInvest_property().get(0);
-        double ti3=targetAssetsLiability3.getSalable_financial_assets().get(0)+targetAssetsLiability3.getOther_eq_ins_invest().get(0)+targetAssetsLiability3.getOther_illiquid_fnncl_assets().get(0)+targetAssetsLiability3.getLt_equity_invest().get(0)+targetAssetsLiability3.getInvest_property().get(0);
+        double ti=targetAssetsLiability.getSalable_financial_assets().get(0)+targetAssetsLiability.getOther_eq_ins_invest().get(0)+targetAssetsLiability.getOther_illiquid_fnncl_assets().get(0)+targetAssetsLiability.getLt_equity_invest().get(0)+targetAssetsLiability.getInvest_property().get(0)+targetAssetsLiability.getProductive_biological_assets().get(0)+targetAssetsLiability.getGoodwill()
+            .get(0)+targetAssetsLiability.getOthr_noncurrent_assets().get(0);
+        double ti2=targetAssetsLiability2.getSalable_financial_assets().get(0)+targetAssetsLiability2.getOther_eq_ins_invest().get(0)+targetAssetsLiability2.getOther_illiquid_fnncl_assets().get(0)+targetAssetsLiability2.getLt_equity_invest().get(0)+targetAssetsLiability2.getInvest_property().get(0)+targetAssetsLiability2.getProductive_biological_assets().get(0)+targetAssetsLiability2.getGoodwill()
+            .get(0)+targetAssetsLiability2.getOthr_noncurrent_assets().get(0);
+        double ti3=targetAssetsLiability3.getSalable_financial_assets().get(0)+targetAssetsLiability3.getOther_eq_ins_invest().get(0)+targetAssetsLiability3.getOther_illiquid_fnncl_assets().get(0)+targetAssetsLiability3.getLt_equity_invest().get(0)+targetAssetsLiability3.getInvest_property().get(0)+targetAssetsLiability3.getProductive_biological_assets().get(0)+targetAssetsLiability3.getGoodwill()
+            .get(0)+targetAssetsLiability3.getOthr_noncurrent_assets().get(0);
 
         param.put(total_invest, getStrValue(ti));
         param.put(total_invest2, getStrValue(ti2));
@@ -734,6 +756,33 @@ public class AnalyzeService {
         param.put(fcif_div_net_profit2, getPercentage(targetInterest2.getFinance_cost_interest_fee().get(0), targetInterest2.getNet_profit().get(0)));
         param.put(fcif_div_net_profit3, getPercentage(targetInterest3.getFinance_cost_interest_fee().get(0), targetInterest3.getNet_profit().get(0)));
 
+        String pre_payment_add_othr_receivables_div_total_assets=target+"pre_payment_add_othr_receivables_div_total_assets";
+        String pre_payment_add_othr_receivables_div_total_assets2=target2+"pre_payment_add_othr_receivables_div_total_assets";
+        String pre_payment_add_othr_receivables_div_total_assets3=target3+"pre_payment_add_othr_receivables_div_total_assets";
+
+        double pre_payment_add_othr_receivables= targetAssetsLiability.getPre_payment().get(0)+targetAssetsLiability.getOthr_receivables().get(0);
+        double pre_payment_add_othr_receivables2= targetAssetsLiability2.getPre_payment().get(0)+targetAssetsLiability2.getOthr_receivables().get(0);
+        double pre_payment_add_othr_receivables3= targetAssetsLiability3.getPre_payment().get(0)+targetAssetsLiability3.getOthr_receivables().get(0);
+
+        param.put(pre_payment_add_othr_receivables_div_total_assets, getPercentage(pre_payment_add_othr_receivables, targetAssetsLiability.getTotal_assets().get(0)));
+        param.put(pre_payment_add_othr_receivables_div_total_assets2, getPercentage(pre_payment_add_othr_receivables2, targetAssetsLiability2.getTotal_assets().get(0)));
+        param.put(pre_payment_add_othr_receivables_div_total_assets3, getPercentage(pre_payment_add_othr_receivables3, targetAssetsLiability3.getTotal_assets().get(0)));
+
+        //优质资产占比总资产
+        String high_quality_div_total_assets=target+"high_quality_div_total_assets";
+        String high_quality_div_total_assets2=target2+"high_quality_div_total_assets";
+        String high_quality_div_total_assets3=target3+"high_quality_div_total_assets";
+        //优质资产主要包括：货币资金、交易性金融资产、银行承兑票据、存货、无形资产。银行承兑票据是属于应收票据的，但是应收票据包括银行承兑汇票和商业承兑票据，需要去财务报表查看加以区分，这里我们不计算在内
+        double high_quality=targetAssetsLiability.getCurrency_funds().get(0)+targetAssetsLiability.getTradable_fnncl_assets()
+            .get(0)+targetAssetsLiability.getInventory().get(0)+targetAssetsLiability.getIntangible_assets().get(0);
+        double high_quality2=targetAssetsLiability2.getCurrency_funds().get(0)+targetAssetsLiability2.getTradable_fnncl_assets()
+            .get(0)+targetAssetsLiability2.getInventory().get(0)+targetAssetsLiability2.getIntangible_assets().get(0);
+        double high_quality3=targetAssetsLiability3.getCurrency_funds().get(0)+targetAssetsLiability3.getTradable_fnncl_assets()
+            .get(0)+targetAssetsLiability3.getInventory().get(0)+targetAssetsLiability3.getIntangible_assets().get(0);
+
+        param.put(high_quality_div_total_assets, getPercentage(high_quality, targetAssetsLiability.getTotal_assets().get(0)));
+        param.put(high_quality_div_total_assets2, getPercentage(high_quality2, targetAssetsLiability2.getTotal_assets().get(0)));
+        param.put(high_quality_div_total_assets3, getPercentage(high_quality3, targetAssetsLiability3.getTotal_assets().get(0)));
         return param;
     }
 

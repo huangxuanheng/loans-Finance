@@ -44,7 +44,7 @@ public class InvestRealEstatePlanTest {
 //        float interest=0.1f;
         float interest=0.035f;
         //贷款期数
-        int numOfPeriods=360;
+        int numOfPeriods=240;
         String startDate=DateUtils.formatDateToStr(new Date());
 
 
