@@ -46,6 +46,39 @@ public class HtmlUtils {
         return "";
     }
 
+
+    public String createHtmlFile2(String templateName, String dynamicLabels,String dynamicData1,String dynamicData2,String dynamicData3,String stockName1,String stockName2,String stockName3) {
+        try {
+            ClassPathResource classPathResource=new ClassPathResource(templateName);
+            Reader reader=new FileReader(classPathResource.getFile());
+            BufferedReader bufferedReader=new BufferedReader(reader);
+
+            StringBuilder sb=new StringBuilder();
+            String line;
+            while ((line=bufferedReader.readLine())!=null){
+                sb.append(line);
+            }
+            bufferedReader.close();
+            reader.close();
+            String fileName=templateName;
+            String content = sb.toString();
+            content=content.replace("{{ labels }}",dynamicLabels);
+            content=content.replace("{{ data1 }}",dynamicData1);
+            content=content.replace("{{ data2 }}",dynamicData2);
+            content=content.replace("{{ data3 }}",dynamicData3);
+            content=content.replace("{{ name1 }}",stockName1);
+            content=content.replace("{{ name2 }}",stockName2);
+            content=content.replace("{{ name3 }}",stockName3);
+            createHtmlFile(fileName,content);
+            log.info("创建指数基金/黄金价格 分析图标成功");
+            return sb.toString();
+        } catch (IOException e) {
+            log.error(e.getMessage(), e);
+        }
+
+        return "";
+    }
+
     private void createHtmlFile(String templateName, String emailContentStr)
         throws IOException {
         String newFileName=templateName.substring(0,templateName.indexOf("."))+ DateUtils.formatDate(new Date(),"yyyy-MM-dd")+templateName.substring(templateName.indexOf("."));

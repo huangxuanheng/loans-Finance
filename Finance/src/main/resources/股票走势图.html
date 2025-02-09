@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Interactive Stock Prices Chart</title>
+    <!-- 引入Chart.js和zoom插件 -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom"></script>
+    <style>
+        .chart-container {
+            width: 80%;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+
+<div class="chart-container">
+    <canvas id="stockChart"></canvas>
+</div>
+
+<script>
+    const dates = {{ labels }};
+    const stockData1 = {{ data1 }};
+    const stockName1 = {{ name1 }};
+
+    const stockData2 = {{ data2 }};
+    const stockName2 = {{ name2 }};
+
+    const stockData3 = {{ data3 }};
+    const stockName3 = {{ name3 }};
+
+    const ctx = document.getElementById('stockChart').getContext('2d');
+    const stockChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: dates,
+            datasets: [
+                {label: stockName1, data: stockData1, borderColor: 'rgba(255, 99, 132, 1)', fill: false},
+                {label: stockName2, data: stockData2, borderColor: 'rgba(54, 162, 235, 1)', fill: false},
+                {label: stockName3, data: stockData3, borderColor: 'rgba(75, 192, 192, 1)', fill: false}
+            ]
+        },
+        options: {
+            responsive: true,
+            title: {
+                display: true,
+                text: 'Interactive Stock Price Trends'
+            },
+            scales: {
+                xAxes: [{
+                    type: 'time',
+                    time: {
+                        parser: 'YYYY-MM-DD',
+                        tooltipFormat: 'll',
+                        unit: 'day',
+                        stepSize: 1,
+                        displayFormats: {
+                            day: 'MMM D'
+                        }
+                    },
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Date'
+                    }
+                }],
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: false
+                    },
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Price'
+                    }
+                }]
+            },
+            plugins: {
+                zoom: {
+                    pan: {
+                        enabled: true,
+                        mode: 'xy'
+                    },
+                    zoom: {
+                        enabled: true,
+                        mode: 'xy',
+                        speed: 0.1
+                    }
+                }
+            }
+        }
+    });
+</script>
+
+</body>
+</html>
